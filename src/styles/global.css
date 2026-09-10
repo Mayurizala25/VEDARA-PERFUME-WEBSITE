@@ -108,6 +108,8 @@ h6 {
   letter-spacing: var(--tracking-tight);
   color: var(--color-primary);
   text-wrap: balance;
+  /* Never let an unbreakable long word push past a narrow (320px) viewport. */
+  overflow-wrap: break-word;
 }
 
 h1 {

@@ -355,12 +355,25 @@
     width: 100%;
     max-height: 92dvh;
   }
+  .close {
+    width: var(--tap-min);
+    height: var(--tap-min);
+  }
   .actions {
     flex-wrap: wrap;
   }
   .add {
     order: 3;
     flex-basis: 100%;
+    min-height: var(--tap-min);
+  }
+  .quantity button,
+  .quantity span {
+    height: var(--tap-min);
+  }
+  .wish {
+    width: var(--tap-min);
+    height: var(--tap-min);
   }
 }
 

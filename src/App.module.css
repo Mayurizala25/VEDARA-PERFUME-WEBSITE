@@ -85,7 +85,9 @@
   display: grid;
   grid-template-columns: 0.9fr 1fr;
   width: min(52rem, 100%);
-  overflow: hidden;
+  max-height: calc(100dvh - 2 * var(--space-5));
+  overflow: auto;
+  overscroll-behavior: contain;
   background: var(--color-bg);
   box-shadow: var(--shadow-raised);
   animation: welcome-rise var(--duration-slow) var(--ease-out) both;
@@ -142,12 +144,27 @@
 @keyframes welcome-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes welcome-rise { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: none; } }
 
+/* Phone: full-width toast clear of the home indicator; lift the back-to-top
+   button above a page's fixed bottom action bar (product / cart). */
+@media (max-width: 47.99em) {
+  .toast {
+    left: var(--container-pad);
+    right: var(--container-pad);
+    bottom: calc(var(--space-4) + var(--safe-bottom));
+    max-width: none;
+  }
+  .backTop {
+    bottom: calc(var(--space-5) + 4.5rem + var(--safe-bottom));
+  }
+}
+
 @media (max-width: 39.99em) {
   .welcome { grid-template-columns: 1fr; }
-  .welcomeImage { min-height: 12rem; }
+  .welcomeImage { min-height: 9rem; }
   .welcomeCopy { padding: var(--space-6); }
-  .welcomeCopy h2 { font-size: 2.5rem; }
-  .welcomeCta { margin-top: var(--space-6); }
+  .welcomeCopy h2 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
+  .welcomeCta { margin-top: var(--space-5); }
+  .welcomeClose { width: var(--tap-min); height: var(--tap-min); }
 }
 
 @media (prefers-reduced-motion: reduce) {

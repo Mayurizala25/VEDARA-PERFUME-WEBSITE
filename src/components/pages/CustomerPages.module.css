@@ -194,3 +194,12 @@
   .faqItem button { min-height: var(--tap-min); }
   .passwordToggle { min-height: var(--tap-min); display: inline-flex; align-items: center; }
 }
+
+/* -- Very small phones (320px): keep long hero headings from breaking mid-word -- */
+@media (max-width: 23.5em) {
+  .pageHero h1 { font-size: clamp(2.4rem, 12vw, 3.4rem); }
+  .checkoutHead h1, .successPage h1, .authPage h1, .emptyState h2, .pageHeading h2 { font-size: var(--fs-xl); }
+  .pageHeroInner { padding-block: 2rem; }
+  .cartItem { grid-template-columns: 4.75rem 1fr; }
+  .orderReceipt div { padding: var(--space-3); }
+}
