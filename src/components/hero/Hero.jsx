@@ -33,7 +33,7 @@ const SLIDES = [
   },
   {
     id: 'oudh-noir',
-    image: '/images/product-oudh-noir.jpg',
+    image: '/images/slider3.jpg',
     align: 'left',
     eyebrow: 'House Favourite',
     title: ['Oudh', 'Noir.'],
