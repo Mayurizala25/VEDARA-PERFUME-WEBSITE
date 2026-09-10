@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import Container from '../layout/Container';
 import Button from '../ui/Button';
 import { getMyOrder, getMyOrders } from '../../lib/orders';
-import { orderAddress, orderImage, orderItems, statusLabel } from '../../lib/invoice';
+import { downloadInvoice, orderAddress, orderImage, orderItems, printInvoice, statusLabel } from '../../lib/invoice';
 import { formatDate, formatPrice } from '../../lib/format';
 import s from './CustomerOrdersPage.module.css';
 
@@ -12,6 +12,68 @@ const FLOW = ['pending', 'confirmed', 'processing', 'shipped', 'delivered'];
 
 function Status({ value }) {
   return <span className={`${s.status} ${s[`status${value}`] || ''}`}>{statusLabel(value)}</span>;
+}
+
+/**
+ * One row in the customer's order list. "Download / Print Invoice" appear only
+ * once the order is Delivered; both build the document from a fresh, RLS-scoped
+ * fetch of that single order, so a customer can only ever invoice their own.
+ */
+function OrderCard({ order }) {
+  const [busy, setBusy] = useState('');
+  const [invoiceError, setInvoiceError] = useState('');
+  const itemCount = (order.order_items || []).reduce((total, item) => total + item.quantity, 0);
+  const canInvoice = String(order.status).toLowerCase() === 'delivered';
+
+  const handleInvoice = async (mode) => {
+    setBusy(mode);
+    setInvoiceError('');
+    // Open the print window on the click itself so the popup isn't blocked
+    // while the order loads.
+    const printWindow = mode === 'print' ? window.open('', '_blank', 'width=900,height=780') : null;
+    try {
+      const fullOrder = await getMyOrder(order.id);
+      if (mode === 'download') await downloadInvoice(fullOrder);
+      else printInvoice(fullOrder, printWindow);
+    } catch (err) {
+      if (printWindow) printWindow.close();
+      setInvoiceError(
+        err?.message === 'ORDER_NOT_FOUND'
+          ? 'This invoice is no longer available.'
+          : err?.message || 'Could not prepare the invoice.',
+      );
+    } finally {
+      setBusy('');
+    }
+  };
+
+  return (
+    <div className={s.orderCard}>
+      <a className={s.orderCardMain} href={`/account/orders/${order.id}`}>
+        <div>
+          <span className={s.orderNumber}>{order.order_number}</span>
+          <span className={s.orderDate}>{formatDate(order.created_at)}</span>
+        </div>
+        <div>
+          <span>{itemCount} item(s)</span>
+          <span>Payment recorded</span>
+          <Status value={order.status} />
+          <strong>{formatPrice(order.total || 0)}</strong>
+        </div>
+      </a>
+      {canInvoice ? (
+        <div className={s.invoiceActions}>
+          <Button type="button" variant="secondary" size="sm" disabled={Boolean(busy)} onClick={() => handleInvoice('download')}>
+            {busy === 'download' ? 'Preparing…' : 'Download Invoice'}
+          </Button>
+          <Button type="button" variant="secondary" size="sm" disabled={Boolean(busy)} onClick={() => handleInvoice('print')}>
+            {busy === 'print' ? 'Opening…' : 'Print Invoice'}
+          </Button>
+          {invoiceError ? <span className={s.invoiceActionError} role="alert">{invoiceError}</span> : null}
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 export function CustomerOrdersPage() {
@@ -43,7 +105,7 @@ export function CustomerOrdersPage() {
   return <main className={s.page}><Container>
     <div className={s.pageHead}><p className={s.eyebrow}>Your VEDARA</p><h1>My orders</h1><p>Every fragrance journey, gathered in one place.</p></div>
     <div className={s.controls}><input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search order or perfume" aria-label="Search orders" /><select value={filter} onChange={(e) => setFilter(e.target.value)} aria-label="Filter orders"><option value="">All orders</option>{FILTERS.slice(1).map((value) => <option key={value} value={value}>{statusLabel(value)}</option>)}</select></div>
-    {error ? <div className={s.error} role="alert">{error}</div> : orders === null ? <p className={s.state}>Loading your orders...</p> : visible.length === 0 ? <div className={s.empty}><h2>{orders.length ? 'No matching orders' : 'No orders yet'}</h2><p>{orders.length ? 'Try another search or filter.' : 'Your first VEDARA order will appear here.'}</p><Button as="a" href="/shop" variant="primary">Explore fragrances</Button></div> : <div className={s.orderList}>{visible.map((order) => <a className={s.orderCard} href={`/account/orders/${order.id}`} key={order.id}><div><span className={s.orderNumber}>{order.order_number}</span><span className={s.orderDate}>{formatDate(order.created_at)}</span></div><div><span>{(order.order_items || []).reduce((total, item) => total + item.quantity, 0)} item(s)</span><span>Payment recorded</span><Status value={order.status} /><strong>{formatPrice(order.total || 0)}</strong></div></a>)}</div>}
+    {error ? <div className={s.error} role="alert">{error}</div> : orders === null ? <p className={s.state}>Loading your orders...</p> : visible.length === 0 ? <div className={s.empty}><h2>{orders.length ? 'No matching orders' : 'No orders yet'}</h2><p>{orders.length ? 'Try another search or filter.' : 'Your first VEDARA order will appear here.'}</p><Button as="a" href="/shop" variant="primary">Explore fragrances</Button></div> : <div className={s.orderList}>{visible.map((order) => <OrderCard key={order.id} order={order} />)}</div>}
   </Container></main>;
 }
 

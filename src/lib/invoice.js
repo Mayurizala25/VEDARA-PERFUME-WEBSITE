@@ -129,6 +129,8 @@ export async function makeInvoicePdf(order) {
     ['Discount', order.discount ? `- ${pdfPrice(order.discount)}` : pdfPrice(0)],
     ['Shipping', order.shipping ? pdfPrice(order.shipping) : 'Complimentary'],
   ];
+  // Tax is only ever shown when the order actually stores one.
+  if (order.tax != null && Number(order.tax) > 0) totals.push(['Tax', pdfPrice(order.tax)]);
   pdf.setFontSize(9);
   for (const [label, value] of totals) {
     pdf.setTextColor(105, 98, 88);
@@ -168,6 +170,7 @@ export function invoiceHtml(order) {
       <td>${formatPrice((Number(item.unit_price) || 0) * (Number(item.quantity) || 0))}</td>
     </tr>`).join('');
   const shipping = order.shipping ? formatPrice(order.shipping) : 'Complimentary';
+  const taxRow = order.tax != null && Number(order.tax) > 0 ? `<dt>Tax</dt><dd>${formatPrice(order.tax)}</dd>` : '';
   const addressLine = [address.address, [address.city, address.state, address.pincode].filter(Boolean).join(', '), address.country].filter(Boolean).join(', ');
   return `<html><head><title>VEDARA Invoice</title><style>
     :root { --color-primary:#1C0B1; --color-cherry:#721D35; --color-accent:#B9857C; --color-muted:#756b62; --color-line:#E5DCCD; --color-secondary:#F8F4EE; --font-heading:'Cormorant Garamond','Times New Roman',serif; --font-body:'Manrope','Helvetica Neue',Arial,sans-serif; }
@@ -192,8 +195,8 @@ export function invoiceHtml(order) {
     .totals dd { text-align:right; }
     .grand { border-top:1px solid var(--color-line); font-weight:700; color:var(--color-primary); }
     .invoiceFoot { margin-top:20px; padding-top:12px; border-top:1px solid var(--color-line); display:flex; justify-content:space-between; gap:22px; color:var(--color-muted); font-size:.72rem; }
-    @media print { body { background:#fff; } .invoice { border:0; box-shadow:none; } }
-  </style></head><body><article class="invoice" id="invoice"><header class="invoiceHead"><div class="invoiceBrand"><strong>VEDARA</strong><span>Wear Your Essence.</span></div><div class="invoiceTitle"><span>Invoice</span><small>${order.order_number || order.id}</small></div></header><section class="invoiceMeta"><div><b>Bill to</b><p>${order.customer_name || address.fullName || 'VEDARA customer'}<br />${order.email}<br />${order.phone || address.phone || ''}</p></div><div><b>Invoice date</b><p>${formatDate(order.created_at)}<br />Order ${order.order_number || order.id}</p></div></section><section class="invoiceAddress"><b>Shipping address</b><p>${addressLine || 'Address not stored'}</p></section><table><thead><tr><th>Product</th><th>Size</th><th>Qty</th><th>Unit price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table><dl class="totals"><dt>Subtotal</dt><dd>${formatPrice(order.subtotal || 0)}</dd><dt>Discount</dt><dd>${order.discount ? `-${formatPrice(order.discount)}` : formatPrice(0)}</dd><dt>Shipping</dt><dd>${shipping}</dd><dt class="grand">Grand total</dt><dd class="grand">${formatPrice(order.total || 0)}</dd></dl><footer class="invoiceFoot"><span>Payment status: Recorded</span><span>Order status: ${statusLabel(order.status)}</span><span>Thank you for choosing VEDARA.</span></footer></article></body></html>`;
+    @media print { @page { size: A4; margin: 12mm; } body { background:#fff; padding:0; } .invoice { border:0; box-shadow:none; max-width:none; padding:0; } }
+  </style></head><body><article class="invoice" id="invoice"><header class="invoiceHead"><div class="invoiceBrand"><strong>VEDARA</strong><span>Wear Your Essence.</span></div><div class="invoiceTitle"><span>Invoice</span><small>${order.order_number || order.id}</small></div></header><section class="invoiceMeta"><div><b>Bill to</b><p>${order.customer_name || address.fullName || 'VEDARA customer'}<br />${order.email}<br />${order.phone || address.phone || ''}</p></div><div><b>Invoice date</b><p>${formatDate(order.created_at)}<br />Order ${order.order_number || order.id}</p></div></section><section class="invoiceAddress"><b>Shipping address</b><p>${addressLine || 'Address not stored'}</p></section><table><thead><tr><th>Product</th><th>Size</th><th>Qty</th><th>Unit price</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table><dl class="totals"><dt>Subtotal</dt><dd>${formatPrice(order.subtotal || 0)}</dd><dt>Discount</dt><dd>${order.discount ? `-${formatPrice(order.discount)}` : formatPrice(0)}</dd><dt>Shipping</dt><dd>${shipping}</dd>${taxRow}<dt class="grand">Grand total</dt><dd class="grand">${formatPrice(order.total || 0)}</dd></dl><footer class="invoiceFoot"><span>Payment status: Recorded</span><span>Order status: ${statusLabel(order.status)}</span><span>Thank you for choosing VEDARA.</span></footer></article></body></html>`;
 }
 
 export async function downloadInvoice(order) {
@@ -202,10 +205,14 @@ export async function downloadInvoice(order) {
   pdf.save(`VEDARA-${order.order_number || order.id}.pdf`);
 }
 
-export function printInvoice(order) {
-  if (!order) throw new Error('Invoice data is unavailable.');
+export function printInvoice(order, existingWindow) {
+  if (!order) {
+    if (existingWindow) existingWindow.close();
+    throw new Error('Invoice data is unavailable.');
+  }
   const html = invoiceHtml(order);
-  const win = window.open('', '_blank', 'width=900,height=780');
+  // Reuse a window the caller opened during the click (avoids popup blocking).
+  const win = existingWindow || window.open('', '_blank', 'width=900,height=780');
   if (!win) throw new Error('Unable to open the invoice printer window.');
   win.document.open();
   win.document.write(html);

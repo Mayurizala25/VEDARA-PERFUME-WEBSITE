@@ -9,12 +9,15 @@
 .controls select { min-width: 9rem; }
 .controls input:focus, .controls select:focus { border-color: var(--color-accent); }
 .orderList { border-top: 1px solid var(--color-line); }
-.orderCard { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--color-line); transition: color .2s; }
-.orderCard:hover { color: var(--color-cherry); }
-.orderCard > div:last-child { display: flex; align-items: center; gap: 1.2rem; color: var(--color-muted); font-size: var(--fs-sm); }
+.orderCard { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.25rem; padding: 1.2rem 0; border-bottom: 1px solid var(--color-line); }
+.orderCardMain { display: flex; flex: 1 1 20rem; min-width: 0; justify-content: space-between; gap: 1rem; color: inherit; transition: color .2s; }
+.orderCardMain:hover { color: var(--color-cherry); }
+.orderCardMain > div:last-child { display: flex; align-items: center; gap: 1.2rem; color: var(--color-muted); font-size: var(--fs-sm); }
+.orderCardMain strong { color: var(--color-primary); font-weight: 600; }
 .orderNumber { display: block; font-weight: 700; }
 .orderDate { display: block; margin-top: .25rem; color: var(--color-muted); font-size: var(--fs-xs); }
-.orderCard strong { color: var(--color-primary); font-weight: 600; }
+.invoiceActions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.invoiceActionError { flex-basis: 100%; color: var(--color-cherry); font-size: var(--fs-xs); }
 .status { display: inline-flex; padding: .25rem .55rem; color: var(--color-cherry); background: var(--color-secondary); font-size: var(--fs-xs); text-transform: capitalize; }
 .statusdelivered { color: #45603c; background: #e8efe3; }
 .statuscancelled { color: #8b3535; background: #f5e4e2; }
@@ -50,7 +53,6 @@
 .totals dd, .invoiceTotals dd { text-align: right; }
 .grand { padding-top: .7rem; border-top: 1px solid var(--color-line); color: var(--color-primary) !important; font-weight: 700; }
 .invoice { margin-top: 2rem; padding: clamp(1.25rem, 4vw, 2.75rem); background: #fffdf9; border: 1px solid var(--color-line); color: var(--color-primary); box-shadow: 0 14px 35px rgba(66, 18, 31, .06); }
-.invoicePrintOnly { display: none; }
 .invoiceHead, .invoiceMeta, .invoiceFoot { display: flex; justify-content: space-between; gap: 1rem; }
 .invoiceHead { padding-bottom: 1.4rem; border-bottom: 1px solid var(--color-accent); }
 .invoiceHead strong { display: block; color: var(--color-cherry); font-family: var(--font-heading); font-size: 2rem; letter-spacing: .12em; }
@@ -69,5 +71,4 @@
 .invoiceTable img { width: 2rem; height: 2.5rem; object-fit: cover; }
 .invoiceFoot { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid var(--color-line); color: var(--color-muted); font-size: var(--fs-xs); flex-wrap: wrap; }
 .invoiceFoot p { flex-basis: 100%; color: var(--color-cherry); font-family: var(--font-heading); font-size: 1.3rem; }
-@media print { @page { size: A4; margin: 12mm; } body * { visibility: hidden; } #invoice, #invoice * { visibility: visible; } #invoice { position: absolute; top: 0; left: 0; width: 100%; margin: 0; border: 0; box-shadow: none; } .invoicePrintOnly { display: block; } }
-@media (max-width: 42rem) { .controls, .detailHead, .invoiceMeta { display: grid; } .controls select { width: 100%; } .orderCard { display: grid; } .orderCard > div:last-child { justify-content: space-between; gap: .5rem; flex-wrap: wrap; } .detailActions { justify-content: start; } .detailGrid { grid-template-columns: 1fr; } .steps small { font-size: .62rem; } .invoice { padding: 1rem; overflow-x: auto; } .invoiceTable { min-width: 34rem; } }
+@media (max-width: 42rem) { .controls, .detailHead, .invoiceMeta { display: grid; } .controls select { width: 100%; } .orderCardMain { display: grid; } .orderCardMain > div:last-child { justify-content: space-between; gap: .5rem; flex-wrap: wrap; } .invoiceActions { width: 100%; } .invoiceActions button { flex: 1 1 auto; } .detailActions { justify-content: start; } .detailGrid { grid-template-columns: 1fr; } .steps small { font-size: .62rem; } .invoice { padding: 1rem; overflow-x: auto; } .invoiceTable { min-width: 34rem; } }
