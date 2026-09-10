@@ -97,6 +97,60 @@ export function ContactPage() {
   </>;
 }
 
+/* ================================================================= Legal */
+
+export function PrivacyPage() {
+  return <>
+    <PageHero eyebrow="Legal" title="Privacy Policy" intro="How VEDARA handles the information you share with us." image="/images/story.jpg" />
+    <main className={styles.pageBody}><Container><div className={styles.legal}>
+      <p className={styles.legalMeta}>This is a demonstration storefront.</p>
+
+      <h2>What we collect</h2>
+      <p>When you create an account we store your name, email address and — if you add it — your phone number. When you place an order we store the items, totals and the shipping address you enter. If you join our newsletter we store your email address so we can write to you about VEDARA.</p>
+
+      <h2>Where it is stored</h2>
+      <p>Account, order and newsletter data is held in our database (Supabase) and protected by row-level security, so you can only ever read your own account and your own orders. Administrative access is limited to VEDARA staff.</p>
+
+      <h2>Payments</h2>
+      <p>This storefront does not process real card payments and does not store any payment details.</p>
+
+      <h2>Your choices</h2>
+      <ul>
+        <li>Update your name and phone number at any time from <a href="/account">your account</a>.</li>
+        <li>Unsubscribe from newsletter emails using the link in any email we send.</li>
+        <li>Ask us to remove your data by writing to <a href="mailto:hello@vedara.example">hello@vedara.example</a>.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>Questions about your data? Email <a href="mailto:hello@vedara.example">hello@vedara.example</a> or use the <a href="/contact">contact page</a>.</p>
+    </div></Container></main>
+  </>;
+}
+
+export function TermsPage() {
+  return <>
+    <PageHero eyebrow="Legal" title="Terms of Use" intro="The basis on which you may use the VEDARA website." image="/images/lifestyle.jpg" />
+    <main className={styles.pageBody}><Container><div className={styles.legal}>
+      <p className={styles.legalMeta}>This is a demonstration storefront.</p>
+
+      <h2>Using this site</h2>
+      <p>You may browse VEDARA and create an account for your personal, non-commercial use. Keep your login details secure — you are responsible for activity on your account.</p>
+
+      <h2>Products and pricing</h2>
+      <p>Fragrance descriptions and imagery are presented as accurately as we can. Prices are shown in Indian Rupees and may change. Placing an order is an offer to buy, which we may accept or decline.</p>
+
+      <h2>Orders and fulfilment</h2>
+      <p>This is a demonstration storefront: no payment is taken and no goods are dispatched. Order records exist so you can see how the account and order flow works.</p>
+
+      <h2>Content</h2>
+      <p>The VEDARA name, wordmark, text and imagery on this site belong to VEDARA and may not be reused without permission.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms? Email <a href="mailto:hello@vedara.example">hello@vedara.example</a>.</p>
+    </div></Container></main>
+  </>;
+}
+
 /* ============================================================== Wishlist */
 
 export function WishlistPage() {

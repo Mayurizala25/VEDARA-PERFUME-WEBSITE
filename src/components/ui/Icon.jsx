@@ -34,6 +34,18 @@ const PATHS = {
       <circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" />
     </>
   ),
+  facebook: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="4.5" />
+      <path d="M14.2 8.4h-1.4c-.9 0-1.6.7-1.6 1.6V20M9 12.6h4.6" />
+    </>
+  ),
+  pinterest: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="4.5" />
+      <path d="M10 19V8.6h3.1a2.6 2.6 0 0 1 0 5.2h-2" />
+    </>
+  ),
   star: <path d="M12 4l2.35 4.76 5.25.76-3.8 3.7.9 5.24L12 16.9l-4.7 2.47.9-5.24-3.8-3.7 5.25-.76L12 4Z" />,
   user: (
     <>

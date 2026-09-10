@@ -24,6 +24,8 @@ import {
   ContactPage,
   LoginPage,
   OrderSuccessPage,
+  PrivacyPage,
+  TermsPage,
   WishlistPage,
 } from './components/pages/CustomerPages';
 import { CustomerOrderDetailPage, CustomerOrdersPage } from './components/pages/CustomerOrdersPage';
@@ -61,6 +63,8 @@ function Storefront() {
     : isCollectionDetail ? CollectionDetailPage
       : path === '/about' ? AboutPage
         : path === '/contact' ? ContactPage
+          : path === '/privacy' ? PrivacyPage
+          : path === '/terms' ? TermsPage
           : path === '/wishlist' ? WishlistPage
             : path === '/cart' ? CartPage
               : path === '/checkout' ? CheckoutPage
