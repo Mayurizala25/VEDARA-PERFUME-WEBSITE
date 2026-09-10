@@ -1,0 +1,39 @@
+.figure {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-secondary);
+}
+
+.ivory {
+  background-color: var(--color-bg);
+}
+.beige {
+  background-color: var(--color-secondary);
+}
+.cherry {
+  background-color: var(--color-cherry-deep);
+}
+.dark {
+  background-color: var(--color-near-black);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--duration-image) var(--ease-out);
+}
+
+.zoom:hover .img,
+.zoom:focus-within .img {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom:hover .img,
+  .zoom:focus-within .img {
+    transform: none;
+  }
+}

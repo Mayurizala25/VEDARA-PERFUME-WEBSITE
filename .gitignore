@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Environment / secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Supabase CLI cache
+supabase/.temp/
+
+# Design scratch / reference assets — not used by the app build
+/color combination.jpg
+/homepagebg.png
+/logo.png
+/refrences/
+/public/Refrences/

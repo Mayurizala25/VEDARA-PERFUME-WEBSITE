@@ -1,0 +1,43 @@
+.section {
+  position: relative;
+}
+
+/* ---- Vertical spacing ------------------------------------------------ */
+.spacing-md {
+  padding-block: var(--section-y);
+}
+
+.spacing-sm {
+  padding-block: calc(var(--section-y) * 0.68);
+}
+
+.spacing-lg {
+  padding-block: calc(var(--section-y) * 1.2);
+}
+
+.spacing-none {
+  padding-block: 0;
+}
+
+/* ---- Tones --------------------------------------------------------- */
+.tone-default {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.tone-beige {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* Black Cherry feature section with Champagne type. */
+.tone-dark {
+  background-color: var(--color-cherry);
+  color: var(--color-on-dark);
+}
+
+/* Near Black — newsletter / deepest sections. */
+.tone-near {
+  background-color: var(--color-near-black);
+  color: var(--color-on-dark);
+}

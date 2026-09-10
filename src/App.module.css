@@ -1,0 +1,156 @@
+.skipLink {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: var(--z-overlay);
+  padding: 0.65rem 1.25rem;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-on-dark);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-accent);
+  transition: transform var(--duration) var(--ease-standard);
+}
+
+.skipLink:focus,
+.skipLink:focus-visible {
+  transform: translate(-50%, 12px);
+}
+
+.toast {
+  position: fixed;
+  right: var(--container-pad);
+  bottom: var(--space-5);
+  z-index: var(--z-overlay);
+  max-width: min(22rem, calc(100vw - 2 * var(--container-pad)));
+  padding: 0.8rem 1rem;
+  color: var(--color-champagne);
+  background: var(--color-cherry-deep);
+  border-left: 2px solid var(--color-rose);
+  box-shadow: var(--shadow-raised);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: opacity var(--duration) var(--ease-standard), transform var(--duration) var(--ease-out);
+}
+
+.toast[data-visible] {
+  opacity: 1;
+  transform: none;
+}
+
+.backTop {
+  position: fixed;
+  right: var(--container-pad);
+  bottom: calc(var(--space-5) + 3.5rem);
+  z-index: var(--z-overlay);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-primary);
+  background: rgba(245, 240, 232, 0.92);
+  border: 1px solid var(--color-line);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.75rem);
+  transition: opacity var(--duration) var(--ease-standard), transform var(--duration) var(--ease-out);
+}
+
+.backTop[data-visible] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.backTop svg {
+  transform: rotate(-90deg);
+}
+
+.welcomeOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-overlay) + 1);
+  display: grid;
+  place-items: center;
+  padding: var(--space-5);
+  background: rgba(42, 14, 20, 0.48);
+  animation: welcome-fade var(--duration) var(--ease-standard) both;
+}
+
+.welcome {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  width: min(52rem, 100%);
+  overflow: hidden;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-raised);
+  animation: welcome-rise var(--duration-slow) var(--ease-out) both;
+}
+
+.welcomeImage {
+  min-height: 25rem;
+  background: url('/images/story.jpg') center / cover no-repeat;
+}
+
+.welcomeCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.75rem, 4vw, 3rem);
+}
+
+.welcomeCopy h2 {
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+}
+
+.welcomeCta {
+  align-self: flex-start;
+  margin-top: var(--space-6);
+  padding: 1rem 1.3rem;
+  color: var(--color-champagne);
+  background: var(--color-cherry);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: background var(--duration) var(--ease-standard), transform var(--duration-fast) var(--ease-out);
+}
+
+.welcomeCta:hover { background: var(--color-cherry-deep); transform: translateY(-2px); }
+
+.welcomeClose {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-primary);
+  background: rgba(246, 241, 231, 0.84);
+}
+
+@keyframes welcome-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes welcome-rise { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 39.99em) {
+  .welcome { grid-template-columns: 1fr; }
+  .welcomeImage { min-height: 12rem; }
+  .welcomeCopy { padding: var(--space-6); }
+  .welcomeCopy h2 { font-size: 2.5rem; }
+  .welcomeCta { margin-top: var(--space-6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcomeOverlay,
+  .welcome { animation: none; }
+}

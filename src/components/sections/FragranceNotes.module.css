@@ -1,0 +1,166 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--heading-gap);
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-line);
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+  transition:
+    color var(--duration) var(--ease-standard),
+    border-color var(--duration) var(--ease-standard),
+    background-color var(--duration) var(--ease-standard);
+}
+
+.control:hover,
+.control:focus-visible {
+  color: var(--color-champagne);
+  border-color: var(--color-cherry);
+  background-color: var(--color-cherry);
+}
+
+.previous {
+  transform: scaleX(-1);
+}
+
+/* ---- Track ---------------------------------------------------- */
+.track {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  margin-inline: calc(var(--container-pad) * -1);
+  padding-inline: var(--container-pad);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.slide {
+  flex: 0 0 min(66vw, 18rem);
+  scroll-snap-align: start;
+}
+
+@media (min-width: 620px) {
+  .slide {
+    flex-basis: calc(40% - var(--space-3));
+  }
+}
+
+@media (min-width: 900px) {
+  .slide {
+    flex-basis: calc(25% - var(--space-3) * 0.75);
+  }
+
+  .head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-8);
+    margin-bottom: var(--heading-gap);
+  }
+
+  .controls {
+    padding-bottom: 0.35rem;
+  }
+}
+
+/* ---- Card --------------------------------------------------- */
+.note {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-champagne);
+}
+
+.note:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.media {
+  height: 100%;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(24, 9, 14, 0.9) 0%,
+    rgba(24, 9, 14, 0.28) 52%,
+    rgba(24, 9, 14, 0) 100%
+  );
+}
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.idx {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-rose);
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-tight);
+}
+
+.desc {
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--color-on-dark-muted);
+  opacity: 0.85;
+  transition: opacity var(--duration) var(--ease-standard);
+}
+
+.note:hover .desc,
+.note:focus .desc,
+.note:focus-within .desc {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desc {
+    transition: none;
+  }
+  .track {
+    scroll-behavior: auto;
+  }
+}

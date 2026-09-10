@@ -1,0 +1,77 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5) var(--space-4);
+}
+
+.grid[data-carousel] {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: var(--space-2);
+  overscroll-behavior-x: contain;
+}
+
+.grid[data-carousel]::-webkit-scrollbar {
+  display: none;
+}
+
+.grid[data-carousel] > li {
+  flex: 0 0 calc(25% - 1.5rem);
+  scroll-snap-align: start;
+}
+
+@media (max-width: 39.99em) {
+  .grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+    padding-bottom: var(--space-2);
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grid > li {
+    flex: 0 0 min(78vw, 18rem);
+    scroll-snap-align: start;
+  }
+
+  .grid[data-carousel] {
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+  }
+
+  .grid[data-carousel] > li {
+    flex-basis: min(84vw, 21rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .grid {
+    gap: var(--space-6) var(--space-5);
+  }
+}
+
+@media (min-width: 40em) and (max-width: 62.49em) {
+  .grid[data-carousel] > li {
+    flex-basis: calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 900px) {
+  .grid[data-columns='3'] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid[data-columns='4'] {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid {
+    gap: var(--space-8) var(--space-6);
+  }
+}

@@ -1,0 +1,101 @@
+.section {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(21rem, 50vh, 30rem);
+  padding: clamp(3rem, 7vw, 4.75rem) var(--container-pad);
+  overflow: hidden;
+  background-color: var(--color-near-black);
+  color: var(--color-champagne);
+  text-align: center;
+}
+
+.media {
+  position: absolute;
+  inset: -8% 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: translateY(var(--shift, 0px)) scale(1.08);
+  will-change: transform;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(24, 9, 14, 0.34) 0%, rgba(24, 9, 14, 0.66) 66%, rgba(24, 9, 14, 0.82) 100%),
+    linear-gradient(180deg, rgba(24, 9, 14, 0.4) 0%, transparent 30%, transparent 70%, rgba(24, 9, 14, 0.4) 100%);
+}
+
+.overlay {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-rose);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-medium);
+  font-size: clamp(2.6rem, 1rem + 6vw, 5.25rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--color-champagne);
+  text-shadow: 0 2px 40px rgba(12, 4, 7, 0.4);
+}
+
+.title span:not(.rule) {
+  display: block;
+}
+
+.rule {
+  width: 4rem;
+  height: 1px;
+  background-color: var(--color-rose);
+}
+
+.link {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  border-bottom: 1px solid rgba(239, 225, 206, 0.4);
+  padding-bottom: 4px;
+  transition: border-color var(--duration) var(--ease-standard);
+}
+
+.link:hover {
+  border-color: var(--color-rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    inset: 0;
+  }
+  .image {
+    transform: none;
+  }
+}

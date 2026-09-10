@@ -1,0 +1,130 @@
+/* ==========================================================================
+   VEDARA — Design Tokens
+   Single source of truth for color, type, spacing, layout, borders, motion.
+
+   PALETTE — warm ivory canvas, deep cherry / charcoal editorial sections:
+     #F5F0E8 Warm Ivory        — main canvas
+     #E7DED0 Soft Beige        — alternating light sections, fills
+     #EFE1CE Champagne         — typography on dark surfaces
+     #171411 Deep Charcoal     — primary ink, dark sections
+     #B08D57 Gold              — primary metallic accent (sparing)
+     #B9857C Rose Gold         — secondary accent, fine details
+     #721D35 Black Cherry      — feature sections, CTA
+     #42121F Black Cherry Dark — deep feature sections
+     #1C0B12 Near Black        — newsletter / footer ground
+     #6B6258 Muted Text        — captions, secondary copy on light
+   ========================================================================== */
+
+:root {
+  /* ---- Color ---------------------------------------------------------- */
+  --color-primary: #2b2620;    /* Charcoal — primary ink                   */
+  --color-bg: #f6f1e7;         /* Warm Ivory — main canvas                 */
+  --color-secondary: #efe6d8;  /* Soft Beige — alt light sections, fills   */
+  --color-surface: #efe6d8;    /* alias — raised light panels              */
+
+  --color-champagne: #efe1ce;  /* text / detail on dark surfaces           */
+  --color-accent: #b89b5e;     /* Brass — primary accent (sparing)         */
+  --color-rose: #b9857c;       /* Rose Gold — secondary accent             */
+  --color-cherry: #5e1b2e;     /* Burgundy — feature sections, CTA         */
+  --color-cherry-deep: #2a0e14;
+  --color-near-black: #2a0e14;
+
+  --color-muted: #6b6258;      /* muted copy on light surfaces             */
+  --color-line: #e5dbcd;       /* hairline borders on light                */
+  --color-primary-hover: #171411;
+  --color-on-primary: var(--color-champagne); /* ink on charcoal/cherry    */
+
+  /* On dark (charcoal / cherry / near-black) surfaces */
+  --color-on-dark: #efe1ce;
+  --color-on-dark-muted: rgba(239, 225, 206, 0.66);
+  --color-line-on-dark: rgba(239, 225, 206, 0.16);
+  --color-on-dark-hover: rgba(239, 225, 206, 0.92);
+
+  /* ---- Typography --------------------------------------------------- */
+  --font-heading: 'Cormorant Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --fs-xs: 0.75rem;    /* 12 */
+  --fs-sm: 0.875rem;   /* 14 */
+  --fs-base: 1rem;     /* 16 */
+  --fs-md: 1.125rem;   /* 18 */
+  --fs-lg: 1.375rem;   /* 22 */
+  --fs-xl: clamp(1.75rem, 1.1rem + 2.8vw, 2.75rem);
+  --fs-2xl: clamp(2.5rem, 1.2rem + 6vw, 4.5rem);
+  --fs-3xl: clamp(3rem, 1rem + 9vw, 6.5rem);
+
+  --lh-tight: 1.12;
+  --lh-heading: 1.2;
+  --lh-base: 1.6;
+
+  --tracking-tight: -0.01em;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.16em;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ---- Spacing scale (4px base) ----------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  /* Vertical rhythm between page sections — compact editorial cadence.
+     Scales continuously from ~52px on small phones to ~88px on wide screens. */
+  --section-y: clamp(3.25rem, 1.75rem + 4.5vw, 5.5rem);
+  /* Space below a section heading before its content. */
+  --heading-gap: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+
+  /* ---- Layout ---------------------------------------------------- */
+  --container-max: 1280px;
+  --container-wide: 1536px;
+  --container-pad: 1.25rem;
+  --header-height: 64px;
+  --announcement-height: 38px;
+
+  /* ---- Borders / radius --------------------------------------- */
+  --border-hairline: 1px solid var(--color-line);
+  --border-strong: 1px solid var(--color-primary);
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-pill: 999px;
+
+  /* ---- Elevation (used sparingly) ---------------------------- */
+  --shadow-subtle: 0 1px 2px rgba(23, 20, 17, 0.06);
+  --shadow-raised: 0 18px 48px rgba(23, 20, 17, 0.12);
+
+  /* ---- Motion ---------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 160ms;
+  --duration: 260ms;
+  --duration-slow: 480ms;
+  --duration-image: 900ms;
+
+  /* ---- Z-index -------------------------------------------- */
+  --z-header: 100;
+  --z-overlay: 200;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-pad: 2rem;
+    --header-height: 76px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --container-pad: 2.5rem;
+  }
+}

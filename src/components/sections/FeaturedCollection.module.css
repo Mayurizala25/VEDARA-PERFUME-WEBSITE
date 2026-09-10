@@ -1,0 +1,83 @@
+.container {
+  position: relative;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--heading-gap);
+}
+
+.headSide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.viewAll {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  white-space: nowrap;
+  transition: color var(--duration) var(--ease-standard);
+}
+
+.viewAll:hover {
+  color: var(--color-cherry);
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-line);
+  color: var(--color-primary);
+  transition:
+    color var(--duration) var(--ease-standard),
+    border-color var(--duration) var(--ease-standard),
+    background-color var(--duration) var(--ease-standard);
+}
+
+.control:hover,
+.control:focus-visible {
+  color: var(--color-champagne);
+  border-color: var(--color-cherry);
+  background-color: var(--color-cherry);
+}
+
+.previous {
+  transform: scaleX(-1);
+}
+
+/* let the carousel bleed to the right edge on large screens for a gallery feel */
+.trackWrap {
+  position: relative;
+}
+
+@media (min-width: 64em) {
+  .head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-8);
+    margin-bottom: var(--heading-gap);
+  }
+
+  .headSide {
+    flex: none;
+    flex-direction: row-reverse;
+    gap: var(--space-6);
+    padding-bottom: 0.35rem;
+  }
+}

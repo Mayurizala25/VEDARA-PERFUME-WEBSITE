@@ -1,0 +1,117 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: var(--radius-none);
+  cursor: pointer;
+  transition:
+    background-color var(--duration) var(--ease-standard),
+    color var(--duration) var(--ease-standard),
+    border-color var(--duration) var(--ease-standard),
+    opacity var(--duration) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled),
+.button:focus-visible:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ---- Variants ------------------------------------------------------- */
+/* Primary CTA — Black Cherry, works on ivory and on dark surfaces. */
+.primary {
+  background-color: var(--color-cherry);
+  color: var(--color-champagne);
+  border-color: var(--color-cherry);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-cherry-deep);
+  border-color: var(--color-cherry-deep);
+}
+
+/* Outline on light surfaces. */
+.secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-champagne);
+}
+
+/* Champagne solid — high contrast on dark (cherry / charcoal) surfaces. */
+.light {
+  background-color: var(--color-champagne);
+  color: var(--color-primary);
+  border-color: var(--color-champagne);
+}
+
+.light:hover:not(:disabled) {
+  background-color: var(--color-rose);
+  border-color: var(--color-rose);
+  color: var(--color-near-black);
+}
+
+/* Outline on dark surfaces. */
+.outlineLight {
+  background-color: transparent;
+  color: var(--color-on-dark);
+  border-color: rgba(239, 225, 206, 0.4);
+}
+
+.outlineLight:hover:not(:disabled) {
+  background-color: var(--color-champagne);
+  color: var(--color-primary);
+  border-color: var(--color-champagne);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+  padding-inline: 0;
+  border: none;
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--color-cherry);
+}
+
+/* ---- Sizes -------------------------------------------------------- */
+.sm {
+  padding: 0.5rem 1.125rem;
+  font-size: var(--fs-xs);
+}
+
+.md {
+  padding: 0.8125rem 1.875rem;
+}
+
+.lg {
+  padding: 1.0625rem 2.5rem;
+  font-size: var(--fs-sm);
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}

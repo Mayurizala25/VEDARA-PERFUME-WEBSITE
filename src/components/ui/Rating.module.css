@@ -1,0 +1,17 @@
+.rating {
+  display: inline-flex;
+  gap: 3px;
+  line-height: 0;
+}
+
+.on {
+  color: var(--color-accent);
+}
+
+.on svg {
+  fill: currentColor;
+}
+
+.off {
+  color: var(--color-line);
+}

@@ -1,0 +1,130 @@
+.container {
+  position: relative;
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  top: -30%;
+  width: min(46rem, 90%);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(185, 133, 124, 0.4) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.card {
+  position: relative;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 5vw, 3.25rem);
+  text-align: center;
+  border: 1px solid var(--color-line-on-dark);
+  outline: 1px solid rgba(185, 133, 124, 0.28);
+  outline-offset: 6px;
+  background: rgba(24, 9, 14, 0.16);
+}
+
+.eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--color-rose);
+}
+
+.title {
+  margin-top: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 1rem + 3.5vw, 3.75rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-on-dark);
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: var(--space-5) auto 0;
+  color: var(--color-rose);
+  font-size: var(--fs-xs);
+}
+
+.ornament i {
+  width: 2.5rem;
+  height: 1px;
+  background-color: rgba(185, 133, 124, 0.5);
+}
+
+.text {
+  margin: var(--space-4) auto 0;
+  max-width: 34rem;
+  color: var(--color-on-dark-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0.25rem;
+  font-size: var(--fs-sm);
+  text-align: center;
+  color: var(--color-on-dark);
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-line-on-dark);
+  transition: border-color var(--duration) var(--ease-standard);
+}
+
+.input::placeholder {
+  color: var(--color-on-dark-muted);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.submit {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.success {
+  margin-top: var(--space-6);
+  padding: 0.85rem 1rem;
+  font-size: var(--fs-sm);
+  color: var(--color-on-dark);
+  border: 1px solid var(--color-accent);
+}
+
+.privacy {
+  margin: var(--space-5) auto 0;
+  font-size: var(--fs-xs);
+  color: var(--color-on-dark-muted);
+}
+
+@media (min-width: 34em) {
+  .form {
+    flex-direction: row;
+    align-items: center;
+  }
+  .input {
+    text-align: left;
+    padding-inline: 0.5rem;
+  }
+}

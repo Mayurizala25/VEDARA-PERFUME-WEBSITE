@@ -1,0 +1,131 @@
+.container {
+  position: relative;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 18rem;
+  margin-top: var(--heading-gap);
+}
+
+.card {
+  flex: 1;
+  max-width: 44rem;
+  margin: 0;
+  padding: 0 var(--space-2);
+  text-align: center;
+  animation: review-in var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes review-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.mark {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  line-height: 0.5;
+  color: var(--color-rose);
+}
+
+.rating {
+  margin-top: var(--space-4);
+}
+
+.quote {
+  margin: var(--space-4) auto 0;
+  max-width: 34ch;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.25rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.32;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-primary);
+}
+
+.by {
+  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.name {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+}
+
+.detail {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.arrow {
+  flex: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-primary);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-bg);
+  transition:
+    color var(--duration) var(--ease-standard),
+    border-color var(--duration) var(--ease-standard),
+    background-color var(--duration) var(--ease-standard);
+}
+
+.arrow:hover {
+  color: var(--color-champagne);
+  border-color: var(--color-cherry);
+  background-color: var(--color-cherry);
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: var(--space-6);
+}
+
+.dot {
+  width: 1.6rem;
+  height: 2px;
+  background: rgba(23, 20, 17, 0.22);
+  transition: width var(--duration) var(--ease-out), background-color var(--duration) var(--ease-standard);
+}
+
+.dot[data-active] {
+  width: 2.75rem;
+  background: var(--color-cherry);
+}
+
+@media (min-width: 48em) {
+  .stage {
+    gap: var(--space-8);
+    min-height: 16.5rem;
+  }
+  .arrow {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
