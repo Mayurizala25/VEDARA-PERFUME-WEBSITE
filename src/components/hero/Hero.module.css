@@ -296,6 +296,30 @@
   50% { transform: translateY(3px); }
 }
 
+/* ---- Phones: shorter hero, tighter top, subject kept in frame -------- */
+@media (max-width: 39.99em) {
+  .hero,
+  .inner {
+    min-height: min(82svh, 640px);
+  }
+  .inner {
+    padding-block:
+      calc(var(--header-offset) + var(--space-5))
+      clamp(2rem, 5vh, 2.75rem);
+    gap: clamp(1.5rem, 5vh, 2.25rem);
+  }
+  .slideImage {
+    background-position: center 45%;
+  }
+  .title {
+    font-size: clamp(2.75rem, 1rem + 8vw, 3.9rem);
+  }
+  .lede {
+    font-size: var(--fs-base);
+    max-width: 32ch;
+  }
+}
+
 /* ---- Small phones ------------------------------------------ */
 @media (max-width: 26.99em) {
   .actions {

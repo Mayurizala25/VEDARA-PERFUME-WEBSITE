@@ -127,6 +127,14 @@
   --z-overlay: 200;
 }
 
+/* Phones: tighter section rhythm so the home page scrolls less. */
+@media (max-width: 39.99em) {
+  :root {
+    --section-y: 2.5rem;
+    --heading-gap: 1.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --container-pad: 2rem;

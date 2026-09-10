@@ -65,6 +65,13 @@
   position: relative;
 }
 
+/* Phones: slightly tighter cards so the next one peeks (home section only). */
+@media (max-width: 39.99em) {
+  .trackWrap > ul[data-carousel] > li {
+    flex-basis: min(74vw, 17rem);
+  }
+}
+
 @media (min-width: 64em) {
   .head {
     flex-direction: row;

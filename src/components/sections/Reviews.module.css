@@ -114,6 +114,25 @@
   background: var(--color-cherry);
 }
 
+@media (max-width: 39.99em) {
+  .stage {
+    min-height: 15rem;
+    margin-top: var(--space-5);
+  }
+  .mark {
+    font-size: 3rem;
+  }
+  .quote {
+    margin-top: var(--space-3);
+  }
+  .by {
+    margin-top: var(--space-4);
+  }
+  .dots {
+    margin-top: var(--space-4);
+  }
+}
+
 @media (min-width: 48em) {
   .stage {
     gap: var(--space-8);

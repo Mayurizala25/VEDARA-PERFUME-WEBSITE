@@ -59,7 +59,7 @@
 }
 
 .slide {
-  flex: 0 0 min(66vw, 18rem);
+  flex: 0 0 min(58vw, 14.5rem);
   scroll-snap-align: start;
 }
 

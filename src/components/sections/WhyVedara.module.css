@@ -75,6 +75,21 @@
   max-width: 32ch;
 }
 
+@media (max-width: 39.99em) {
+  .layout {
+    gap: var(--space-4);
+  }
+  .item {
+    padding: var(--space-4) 0;
+  }
+  .icon {
+    margin-top: var(--space-2);
+  }
+  .itemTitle {
+    margin-top: var(--space-2);
+  }
+}
+
 @media (min-width: 600px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);

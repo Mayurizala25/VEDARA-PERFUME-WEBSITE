@@ -9,6 +9,9 @@ export default function Lifestyle() {
   useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    // Parallax is a desktop flourish — phones get a still image so scrolling
+    // stays smooth and the GPU isn't driving a full-bleed layer.
+    if (!window.matchMedia('(min-width: 60em)').matches) return undefined;
     let raf = 0;
     const update = () => {
       raf = 0;

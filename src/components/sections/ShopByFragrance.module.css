@@ -29,7 +29,7 @@
   }
 
   .item {
-    flex: 0 0 min(78vw, 20rem);
+    flex: 0 0 min(66vw, 15.5rem);
     scroll-snap-align: start;
   }
 }

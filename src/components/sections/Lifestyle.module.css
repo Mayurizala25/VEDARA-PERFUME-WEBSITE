@@ -91,6 +91,24 @@
   border-color: var(--color-rose);
 }
 
+/* Phones: shorter panel, still image (parallax JS is desktop-only). */
+@media (max-width: 39.99em) {
+  .section {
+    min-height: clamp(17rem, 42vh, 22rem);
+    padding-block: clamp(2.5rem, 6vh, 3.5rem);
+  }
+  .media {
+    inset: 0;
+  }
+  .image {
+    transform: scale(1.04);
+    will-change: auto;
+  }
+  .title {
+    font-size: clamp(2.4rem, 1rem + 6vw, 3.4rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .media {
     inset: 0;

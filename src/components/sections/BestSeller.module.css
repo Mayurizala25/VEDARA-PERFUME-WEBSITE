@@ -124,6 +124,36 @@
   color: var(--color-on-dark);
 }
 
+/* Phones: a contained image (not a full-width slab) + a full-width CTA. */
+@media (max-width: 39.99em) {
+  .layout {
+    gap: var(--space-5);
+  }
+  .mediaFrame {
+    max-width: 19rem;
+    margin-inline: auto;
+  }
+  .name {
+    font-size: var(--fs-lg);
+    margin-top: var(--space-2);
+  }
+  .story {
+    margin-top: var(--space-3);
+  }
+  .notes {
+    margin-top: var(--space-4);
+  }
+  .buy {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .buy .cta {
+    width: 100%;
+  }
+}
+
 @media (min-width: 700px) and (max-width: 859px) {
   .layout {
     grid-template-columns: 0.9fr 1fr;

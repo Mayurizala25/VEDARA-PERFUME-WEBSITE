@@ -101,7 +101,8 @@
 
 .submit {
   flex-shrink: 0;
-  align-self: center;
+  align-self: stretch;
+  width: 100%;
 }
 
 .success {
@@ -126,5 +127,9 @@
   .input {
     text-align: left;
     padding-inline: 0.5rem;
+  }
+  .submit {
+    align-self: center;
+    width: auto;
   }
 }
