@@ -2,7 +2,41 @@
   position: fixed;
   inset: 0 0 auto;
   z-index: var(--z-header);
+  padding-top: var(--safe-top);
   color: var(--color-primary);
+  transition: transform var(--duration) var(--ease-standard);
+}
+
+/* Hide-on-scroll-down (mobile only — the JS only sets this under 960px). */
+.header[data-hidden] {
+  transform: translateY(-100%);
+}
+
+/* On phones, paint the notch / safe-area strip so content never shows through
+   above the bar. Transparent over the hero until scrolled; dark with the menu. */
+@media (max-width: 59.99em) {
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--safe-top);
+    background-color: var(--color-bg);
+  }
+  .header[data-home]:not([data-scrolled]):not([data-menu-open])::before {
+    background-color: transparent;
+  }
+  .header[data-menu-open]::before {
+    background-color: var(--color-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+  }
+  .header[data-hidden] {
+    transform: none;
+  }
 }
 
 /* Home: transparent overlay with Champagne type over the cinematic hero,
@@ -48,7 +82,8 @@
     opacity var(--duration-fast) var(--ease-standard);
 }
 
-.header[data-scrolled] .announcement {
+.header[data-scrolled] .announcement,
+.header[data-menu-open] .announcement {
   max-height: 0;
   opacity: 0;
 }
@@ -99,9 +134,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-inline-start: -8px;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin-inline-start: -10px;
   color: currentColor;
 }
 
@@ -210,14 +245,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--tap-min);
+  height: var(--tap-min);
   color: currentColor;
   transition: color var(--duration) var(--ease-standard);
 }
 
 .actions .iconButton:last-child {
-  margin-inline-end: -8px;
+  margin-inline-end: -10px;
 }
 
 .iconButton:hover {
@@ -286,6 +321,7 @@
 
 .searchSubmit {
   padding-inline: 0.85rem;
+  min-height: var(--tap-min);
   color: var(--color-champagne);
   background: var(--color-cherry);
   font-size: var(--fs-xs);
@@ -294,13 +330,27 @@
   text-transform: uppercase;
 }
 
+/* Full-bleed search under the bar on phones. */
+@media (max-width: 37.5em) {
+  .searchPanel {
+    left: 0;
+    right: 0;
+    width: auto;
+  }
+  .searchPanel input {
+    padding-block: 0.8rem;
+  }
+}
+
 /* ---- Mobile slide-down panel ------------------------------ */
 .mobilePanel {
   position: fixed;
   left: 0;
   right: 0;
-  top: var(--header-height);
-  height: calc(100dvh - var(--header-height));
+  /* The menu forces the announcement bar collapsed, so the header is always
+     exactly this tall while the panel is open. */
+  top: calc(var(--header-height) + var(--safe-top));
+  height: calc(100dvh - var(--header-height) - var(--safe-top));
   background-color: var(--color-primary);
   border-top: 1px solid var(--color-line-on-dark);
   overflow-y: auto;
@@ -358,7 +408,8 @@
 }
 
 .mobileNavLink:hover,
-.mobileNavLink:focus-visible {
+.mobileNavLink:focus-visible,
+.mobileNavLink[data-active='true'] {
   color: var(--color-rose);
 }
 

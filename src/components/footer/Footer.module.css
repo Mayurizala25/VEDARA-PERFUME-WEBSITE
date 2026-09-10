@@ -1,19 +1,25 @@
 .footer {
-  background-color: var(--color-primary);
-  color: var(--color-on-dark);
-  padding-block: clamp(2.5rem, 4vw, 3.5rem) var(--space-5);
+  background-color: var(--color-near-black);
+  color: var(--color-champagne);
+  border-top: 1px solid var(--color-line-on-dark);
+  padding-block: var(--space-5);
 }
 
-/* ---- Top: brand block + link columns --------------------------- */
-.top {
-  display: grid;
-  gap: var(--space-6);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-line-on-dark);
+/* ---- Layout ------------------------------------------------------ */
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
 }
 
+/* ---- Brand ----------------------------------------------------- */
 .brand {
-  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
 }
 
 .brandLink {
@@ -21,149 +27,36 @@
 }
 
 .wordmark {
-  display: inline-block;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: var(--fs-lg);
   font-weight: var(--fw-medium);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.22em;
   line-height: 1;
   color: var(--color-champagne);
 }
 
 .tagline {
-  margin-top: var(--space-2);
   font-family: var(--font-heading);
-  font-size: var(--fs-md);
+  font-size: var(--fs-sm);
   font-style: italic;
   color: var(--color-rose);
 }
 
-.blurb {
-  margin-top: var(--space-3);
-  font-size: var(--fs-sm);
-  line-height: 1.65;
-  color: var(--color-on-dark-muted);
-}
-
-.contact {
-  margin-top: var(--space-3);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.02em;
-  color: var(--color-on-dark-muted);
-}
-
-.contactLink,
-.contactLink:visited {
-  color: var(--color-champagne);
-  transition: color var(--duration) var(--ease-standard);
-}
-
-.contactLink:hover {
-  color: var(--color-rose);
-}
-
-/* ---- Newsletter ---------------------------------------------- */
-.newsletter {
-  margin-top: var(--space-4);
-}
-
-.newsletterLabel {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
-  color: var(--color-champagne);
-}
-
-.newsletterRow {
+/* ---- Center nav ---------------------------------------------- */
+.nav {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
-  max-width: 23rem;
-}
-
-.newsletterInput {
-  flex: 1 1 12rem;
-  min-width: 0;
-  padding: 0.6rem 0.75rem;
-  font: inherit;
-  font-size: var(--fs-sm);
-  color: var(--color-on-dark);
-  background: transparent;
-  border: 1px solid var(--color-line-on-dark);
-  border-radius: var(--radius-none);
-  transition: border-color var(--duration) var(--ease-standard);
-}
-
-.newsletterInput::placeholder {
-  color: var(--color-on-dark-muted);
-}
-
-.newsletterInput:focus-visible {
-  outline: none;
-  border-color: var(--color-rose);
-}
-
-.newsletterButton {
-  padding: 0.6rem 1.15rem;
-  font-family: var(--font-body);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-primary);
-  background: var(--color-champagne);
-  border: 1px solid var(--color-champagne);
-  cursor: pointer;
-  transition: background-color var(--duration) var(--ease-standard), border-color var(--duration) var(--ease-standard);
-}
-
-.newsletterButton:hover:not(:disabled) {
-  background: var(--color-rose);
-  border-color: var(--color-rose);
-}
-
-.newsletterButton:disabled {
-  opacity: 0.55;
-  cursor: default;
-}
-
-.newsletterNote {
-  margin-top: var(--space-2);
-  font-size: var(--fs-xs);
-  color: var(--color-on-dark-muted);
-}
-
-/* ---- Link columns ------------------------------------------- */
-.columns {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-5);
-}
-
-.colHeading {
-  margin-bottom: var(--space-3);
-  font-family: var(--font-body);
-  font-size: var(--fs-xs);
-  font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
-  color: var(--color-champagne);
-}
-
-.column ul {
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-2) var(--space-5);
 }
 
 .link,
 .link:visited {
-  display: inline-block;
-  padding-block: 0.42rem;
-  font-size: var(--fs-sm);
-  color: rgba(239, 225, 206, 0.82);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
   transition: color var(--duration) var(--ease-standard);
 }
 
@@ -171,110 +64,99 @@
   color: var(--color-champagne);
 }
 
-/* ---- Bottom bar ------------------------------------------- */
-.bottom {
+/* ---- Right: social + copyright ----------------------------- */
+.right {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
   align-items: center;
-  padding-top: var(--space-5);
-  text-align: center;
+  gap: var(--space-3);
+}
+
+.whatsapp,
+.whatsapp:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-champagne);
+  transition: color var(--duration) var(--ease-standard);
+}
+
+.whatsapp:hover {
+  color: var(--color-rose);
+}
+
+.whatsapp svg {
+  flex: none;
 }
 
 .copy {
   font-size: var(--fs-xs);
   letter-spacing: var(--tracking-wide);
   color: var(--color-on-dark-muted);
-}
-
-.legal {
-  display: flex;
-  gap: var(--space-4);
-}
-
-.legalLink,
-.legalLink:visited {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-on-dark-muted);
-  transition: color var(--duration) var(--ease-standard);
-}
-
-.legalLink:hover {
-  color: var(--color-champagne);
-}
-
-.social {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.socialLink,
-.socialLink:visited {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  color: var(--color-on-dark);
-  border: 1px solid var(--color-line-on-dark);
-  transition: color var(--duration) var(--ease-standard), border-color var(--duration) var(--ease-standard);
-}
-
-.socialLink:hover {
-  color: var(--color-rose);
-  border-color: var(--color-rose);
+  white-space: nowrap;
 }
 
 /* ---- Focus states (keyboard) ------------------------------ */
 .brandLink:focus-visible,
-.contactLink:focus-visible,
-.newsletterButton:focus-visible,
 .link:focus-visible,
-.legalLink:focus-visible,
-.socialLink:focus-visible {
+.whatsapp:focus-visible {
   outline: 2px solid var(--color-rose);
   outline-offset: 3px;
   color: var(--color-champagne);
 }
 
-/* ---- Tablet ---------------------------------------------- */
+/* ---- Tablet: 2-row balanced layout ------------------------ */
 @media (min-width: 48em) {
-  .columns {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6) var(--space-4);
-  }
-  .bottom {
+  .inner {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
+    row-gap: var(--space-4);
     text-align: left;
   }
-  .legal {
-    order: 3;
+  .brand {
+    align-items: flex-start;
   }
-  .social {
-    order: 2;
+  .right {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: center;
   }
 }
 
-/* ---- Desktop ------------------------------------------- */
+/* ---- Desktop: single clean row --------------------------- */
 @media (min-width: 64em) {
-  .top {
-    grid-template-columns: minmax(0, 22rem) 1fr;
-    gap: var(--space-10);
-  }
-  .columns {
+  .inner {
+    flex-wrap: nowrap;
+    align-items: center;
     gap: var(--space-6);
+  }
+  .brand {
+    flex: 1 1 0;
+  }
+  .nav {
+    order: 0;
+    flex: 0 0 auto;
+    flex-basis: auto;
+  }
+  .right {
+    flex: 1 1 0;
+    justify-content: flex-end;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .link,
-  .socialLink,
-  .contactLink,
-  .legalLink,
-  .newsletterButton,
-  .newsletterInput {
+  .whatsapp {
     transition: none;
   }
 }

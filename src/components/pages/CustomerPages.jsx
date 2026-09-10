@@ -229,6 +229,11 @@ export function CartPage() {
             <div className={styles.total}><span>Total</span><strong>{formatPrice(subtotal + shipping)}</strong></div>
             <Button as="a" href="/checkout" variant="primary" fullWidth>Continue to checkout</Button>
           </aside>
+
+          <div className={styles.mobileBar}>
+            <span><small>Total</small><strong>{formatPrice(subtotal + shipping)}</strong></span>
+            <Button as="a" href="/checkout" variant="primary">Checkout</Button>
+          </div>
         </div>
       ) : <EmptyState title="Your collection is empty." text="Begin with a fragrance and build a signature that is yours." action="Shop fragrances" href="/shop" />}
     </Container></main>
@@ -262,6 +267,7 @@ export function CheckoutPage() {
   }));
   const [error, setError] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) go('/login?redirect=/checkout');
@@ -462,15 +468,23 @@ export function CheckoutPage() {
           <label className={styles.choice}><input type="radio" name="payment" defaultChecked /> Card payment UI · frontend demo</label>
           <p className={styles.muted}>No payment is processed in this frontend experience.</p>
           {error ? <p className={styles.formError} role="alert">{error}</p> : null}
-          <Button type="submit" variant="primary" fullWidth disabled={processing}>{processing ? 'Placing your order…' : `Place order · ${formatPrice(totals.total)}`}</Button>
+          <div className={styles.stickyAction}>
+            <Button type="submit" variant="primary" fullWidth disabled={processing}>{processing ? 'Placing your order…' : `Place order · ${formatPrice(totals.total)}`}</Button>
+          </div>
         </section>
-        <aside className={styles.summary}>
+        <aside className={styles.summary} data-open={summaryOpen || undefined}>
+          <button type="button" className={styles.summaryToggle} aria-expanded={summaryOpen} onClick={() => setSummaryOpen((v) => !v)}>
+            <span>Order summary</span>
+            <span>{formatPrice(totals.total)} <Icon name="arrow" size={15} /></span>
+          </button>
           <h2>Order summary</h2>
-          {items.map((item) => <div className={styles.orderLine} key={`${item.slug}-${item.size}`}><span>{item.name} · {item.size} × {item.quantity}</span><strong>{formatPrice(item.price * item.quantity)}</strong></div>)}
-          <div><span>Subtotal</span><strong>{formatPrice(totals.subtotal)}</strong></div>
-          {totals.discount ? <div><span>{coupon?.code || 'Discount'}</span><strong>−{formatPrice(totals.discount)}</strong></div> : null}
-          <div><span>Shipping</span><strong>{totals.shipping ? formatPrice(totals.shipping) : 'Complimentary'}</strong></div>
-          <div className={styles.total}><span>Total</span><strong>{formatPrice(totals.total)}</strong></div>
+          <div className={styles.summaryBody}>
+            {items.map((item) => <div className={styles.orderLine} key={`${item.slug}-${item.size}`}><span>{item.name} · {item.size} × {item.quantity}</span><strong>{formatPrice(item.price * item.quantity)}</strong></div>)}
+            <div><span>Subtotal</span><strong>{formatPrice(totals.subtotal)}</strong></div>
+            {totals.discount ? <div><span>{coupon?.code || 'Discount'}</span><strong>−{formatPrice(totals.discount)}</strong></div> : null}
+            <div><span>Shipping</span><strong>{totals.shipping ? formatPrice(totals.shipping) : 'Complimentary'}</strong></div>
+            <div className={styles.total}><span>Total</span><strong>{formatPrice(totals.total)}</strong></div>
+          </div>
         </aside>
       </form>
     </Container></main>

@@ -13,7 +13,6 @@
   inset: 0;
   z-index: 0;
   transform: translateY(var(--parallax, 0px));
-  will-change: transform;
 }
 
 .slideImage {
@@ -31,7 +30,16 @@
 .slideImage[data-active] {
   opacity: 1;
   transform: scale(1.06);
-  animation: hero-kenburns 9s var(--ease-standard) forwards;
+}
+
+/* Ken-Burns push + GPU hint: desktop only. Phones get a clean crossfade. */
+@media (min-width: 60em) {
+  .stage {
+    will-change: transform;
+  }
+  .slideImage[data-active] {
+    animation: hero-kenburns 9s var(--ease-standard) forwards;
+  }
 }
 
 @keyframes hero-kenburns {
@@ -83,7 +91,7 @@
   gap: clamp(2rem, 6vh, 3.5rem);
   min-height: 100svh;
   padding-block:
-    calc(var(--header-height) + var(--announcement-height) + var(--space-8))
+    calc(var(--header-offset) + var(--space-8))
     clamp(2.75rem, 7vh, 3.75rem);
 }
 
@@ -314,7 +322,7 @@
 @media (min-width: 60em) {
   .inner {
     padding-block:
-      calc(var(--header-height) + var(--announcement-height) + var(--space-10))
+      calc(var(--header-offset) + var(--space-10))
       clamp(2.5rem, 6vh, 4rem);
   }
   .arrow {

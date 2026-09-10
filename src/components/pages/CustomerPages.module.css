@@ -59,13 +59,15 @@
 .quantity button, .quantity span { display: grid; place-items: center; width: 2.4rem; height: 2.5rem; }
 .summary { align-self: start; padding: var(--space-6); background: var(--color-secondary); }
 .summary h2 { font-family: var(--font-heading); font-size: var(--fs-xl); font-weight: var(--fw-medium); }
-.summary > div { display: flex; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); color: var(--color-muted); font-size: var(--fs-sm); }
+.summary > div, .summaryBody > div { display: flex; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-4); color: var(--color-muted); font-size: var(--fs-sm); }
 .summary strong { color: var(--color-primary); font-weight: var(--fw-medium); }
 .summary .total { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-line); color: var(--color-primary); font-size: var(--fs-md); }
 .promo { display: flex; margin-top: var(--space-6); border: 1px solid var(--color-line); }
 .promo input { min-width: 0; flex: 1; padding: .8rem; border: 0; outline: 0; background: transparent; }
 .promo button { padding-inline: .8rem; color: var(--color-cherry); font-size: var(--fs-xs); font-weight: var(--fw-semibold); text-transform: uppercase; }
-.checkout { padding-block: calc(var(--header-height) + var(--announcement-height) + var(--section-y)) var(--section-y); background: var(--color-bg); }
+.checkout { padding-block: calc(var(--header-offset) + var(--section-y)) var(--section-y); background: var(--color-bg); }
+.stickyAction { margin-top: var(--space-2); }
+.summaryToggle { display: none; }
 .checkoutHead { margin-bottom: var(--heading-gap); }
 .checkoutHead h1 { font-size: var(--fs-2xl); }
 .checkoutLayout .form { margin-top: 0; }
@@ -122,3 +124,73 @@
 
 @media (max-width: 59.99em) { .pageHero { min-height: 23rem; } .pageHeroImage { inset: 0; opacity: .38; } .pageHeroImage::after { background: linear-gradient(90deg, var(--color-secondary) 15%, rgba(239,230,216,.42)); } .wishlistGrid { grid-template-columns: repeat(2, 1fr); } .editorialSplit, .contactLayout, .cartLayout, .checkoutLayout, .accountGrid { grid-template-columns: 1fr; gap: var(--space-8); } .summary { max-width: 34rem; } }
 @media (max-width: 39.99em) { .pageHeroInner { padding-block: 2.5rem; } .pageHero h1 { font-size: clamp(3.2rem, 15vw, 5rem); } .wishlistGrid { gap: var(--space-4); } .valueGrid { grid-template-columns: 1fr; gap: var(--space-5); } .formRow { grid-template-columns: 1fr; } .cartItem { grid-template-columns: 5.5rem 1fr; gap: var(--space-3); } .cartItem h3 { font-size: var(--fs-lg); } .cartControls { flex-wrap: wrap; gap: var(--space-3); } .orderReceipt { grid-template-columns: 1fr; } .orderReceipt div { border-right: 0; border-bottom: 1px solid var(--color-line); } }
+
+/* ============================================================ Mobile app polish
+   Persistent primary actions + comfortable touch targets ≤ 60em / 40em. */
+
+/* -- Cart: sticky Checkout bar -- */
+.mobileBar { display: none; }
+
+@media (max-width: 59.99em) {
+  .cartLayout { position: relative; padding-bottom: calc(4.5rem + var(--safe-bottom)); }
+  .mobileBar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: 0.7rem var(--container-pad) calc(0.7rem + var(--safe-bottom));
+    background: rgba(246, 241, 231, 0.96);
+    border-top: 1px solid var(--color-line);
+    backdrop-filter: blur(12px);
+  }
+  .mobileBar span { display: flex; flex-direction: column; line-height: 1.2; }
+  .mobileBar small { color: var(--color-muted); font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: var(--tracking-wide); }
+  .mobileBar strong { color: var(--color-primary); font-size: var(--fs-md); }
+  .mobileBar :global(a) { min-height: var(--tap-min); padding-inline: var(--space-6); }
+
+  /* -- Checkout: sticky Place order + collapsible summary -- */
+  .stickyAction {
+    position: sticky;
+    bottom: 0;
+    margin: var(--space-4) calc(var(--container-pad) * -1) 0;
+    padding: 0.7rem var(--container-pad) calc(0.7rem + var(--safe-bottom));
+    background: rgba(246, 241, 231, 0.96);
+    border-top: 1px solid var(--color-line);
+    backdrop-filter: blur(12px);
+  }
+  .stickyAction :global(button) { min-height: var(--tap-min); }
+
+  .checkoutLayout .summary { order: -1; max-width: none; padding: 0; background: transparent; }
+  .checkoutLayout .summary > h2 { display: none; }
+  .summaryToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-secondary);
+    font-weight: var(--fw-semibold);
+  }
+  .summaryToggle > span:last-child { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-cherry); }
+  .summaryToggle svg { transition: transform var(--duration) var(--ease-out); transform: rotate(90deg); }
+  .summary[data-open] .summaryToggle svg { transform: rotate(-90deg); }
+  .summaryBody { display: none; padding: 0 var(--space-4) var(--space-4); background: var(--color-secondary); }
+  .summary[data-open] .summaryBody { display: block; }
+  .summaryBody > div:first-child { margin-top: var(--space-4); }
+}
+
+/* -- Larger tap targets on phones -- */
+@media (max-width: 39.99em) {
+  .quantity button, .quantity span { width: 2.75rem; height: var(--tap-min); }
+  .cartControls > button:last-child { min-height: var(--tap-min); display: inline-flex; align-items: center; }
+  .cardActions > button:last-child { width: var(--tap-min); height: var(--tap-min); }
+  .accountLinks a { padding-block: var(--space-4); min-height: var(--tap-min); }
+  .faqItem button { min-height: var(--tap-min); }
+  .passwordToggle { min-height: var(--tap-min); display: inline-flex; align-items: center; }
+}

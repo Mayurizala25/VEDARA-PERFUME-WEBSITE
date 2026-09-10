@@ -112,6 +112,16 @@
     transform var(--duration-fast) var(--ease-out);
 }
 
+/* Invisible 44px hit area around the visually compact wishlist toggle. */
+.wish::before {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  transform: translate(-50%, -50%);
+}
+
 .wish:hover {
   color: var(--color-cherry);
 }
@@ -291,6 +301,42 @@
 
 .add:not(:disabled):active {
   transform: scale(0.98);
+}
+
+/* Touch devices never see the hover overlay — remove it so it isn't a dead
+   layer over the image. Tapping the card already opens the product page. */
+@media (hover: none) {
+  .quickView {
+    display: none;
+  }
+}
+
+/* Compact card on phones: trim to the essentials so more products fit the
+   viewport and every row is quick to scan. */
+@media (max-width: 40em) {
+  .description,
+  .sizes,
+  .stock {
+    display: none;
+  }
+  .body {
+    padding-top: var(--space-3);
+  }
+  .name {
+    font-size: var(--fs-md);
+  }
+  .ratingRow,
+  .price {
+    margin-top: var(--space-2);
+  }
+  .add {
+    min-height: var(--tap-min);
+    padding-top: var(--space-3);
+  }
+  .wish {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

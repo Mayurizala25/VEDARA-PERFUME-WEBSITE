@@ -137,3 +137,27 @@
 .add:active {
   transform: scale(0.98);
 }
+
+/* No hover on touch — drop the reveal-on-hover Quick view overlay. */
+@media (hover: none) {
+  .quickView {
+    display: none;
+  }
+}
+
+@media (max-width: 40em) {
+  .body {
+    padding-top: var(--space-3);
+  }
+  .name {
+    font-size: var(--fs-md);
+  }
+  .add {
+    min-height: var(--tap-min);
+    margin-top: var(--space-3);
+  }
+  .wish {
+    width: 38px;
+    height: 38px;
+  }
+}

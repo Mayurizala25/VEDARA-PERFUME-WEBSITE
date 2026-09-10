@@ -2,16 +2,21 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import Header from './components/header/Header';
 import Hero from './components/hero/Hero';
 import FeaturedCollection from './components/sections/FeaturedCollection';
-import ShopByFragrance from './components/sections/ShopByFragrance';
-import BestSeller from './components/sections/BestSeller';
-import BrandStory from './components/sections/BrandStory';
-import WhyVedara from './components/sections/WhyVedara';
-import FragranceNotes from './components/sections/FragranceNotes';
-import Reviews from './components/sections/Reviews';
-import Lifestyle from './components/sections/Lifestyle';
-import Newsletter from './components/sections/Newsletter';
 import Footer from './components/footer/Footer';
 import Icon from './components/ui/Icon';
+import LazySection from './components/layout/LazySection';
+
+// Below-the-fold homepage sections — split into their own chunks and mounted
+// only as the visitor scrolls near them (see <LazySection>). Keeps the initial
+// storefront payload to the header, hero and first collection band.
+const ShopByFragrance = lazy(() => import('./components/sections/ShopByFragrance'));
+const BestSeller = lazy(() => import('./components/sections/BestSeller'));
+const BrandStory = lazy(() => import('./components/sections/BrandStory'));
+const WhyVedara = lazy(() => import('./components/sections/WhyVedara'));
+const FragranceNotes = lazy(() => import('./components/sections/FragranceNotes'));
+const Reviews = lazy(() => import('./components/sections/Reviews'));
+const Lifestyle = lazy(() => import('./components/sections/Lifestyle'));
+const Newsletter = lazy(() => import('./components/sections/Newsletter'));
 import ShopPage from './components/shop/ShopPage';
 import ProductPage from './components/product/ProductPage';
 import CollectionsPage from './components/collections/CollectionsPage';
@@ -96,9 +101,19 @@ function Storefront() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 720);
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        setShowTop(window.scrollY > 720);
+      });
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -118,14 +133,14 @@ function Storefront() {
           <>
             <Hero />
             <FeaturedCollection />
-            <ShopByFragrance />
-            <BestSeller />
-            <BrandStory />
-            <FragranceNotes />
-            <WhyVedara />
-            <Lifestyle />
-            <Reviews />
-            <Newsletter />
+            <LazySection minHeight="70vh"><ShopByFragrance /></LazySection>
+            <LazySection minHeight="90vh"><BestSeller /></LazySection>
+            <LazySection minHeight="80vh"><BrandStory /></LazySection>
+            <LazySection minHeight="70vh"><FragranceNotes /></LazySection>
+            <LazySection minHeight="60vh"><WhyVedara /></LazySection>
+            <LazySection minHeight="80vh"><Lifestyle /></LazySection>
+            <LazySection minHeight="70vh"><Reviews /></LazySection>
+            <LazySection minHeight="50vh"><Newsletter /></LazySection>
           </>
         )}
       </main>

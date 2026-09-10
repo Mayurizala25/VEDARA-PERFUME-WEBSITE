@@ -63,10 +63,12 @@ export default function Hero() {
     return () => window.clearTimeout(id);
   }, [active, paused, reduced, go]);
 
-  // Scroll parallax on the image stage.
+  // Scroll parallax on the image stage — desktop only; phones get a static stage
+  // so scrolling stays smooth and the GPU isn't driving a full-bleed layer.
   useEffect(() => {
     const el = stageRef.current;
     if (!el || reduced) return undefined;
+    if (!window.matchMedia('(min-width: 60em)').matches) return undefined;
     let raf = 0;
     const update = () => {
       raf = 0;

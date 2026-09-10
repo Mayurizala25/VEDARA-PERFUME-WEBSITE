@@ -1,0 +1,6 @@
+/* Neutral placeholder that occupies a section's reserved height before it
+   mounts — no shimmer, no motion, just the page ground colour. */
+.pending {
+  width: 100%;
+  background-color: var(--color-bg);
+}

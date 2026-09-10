@@ -320,6 +320,11 @@ table.table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
   .formGrid, .formGrid3 { grid-template-columns: 1fr; }
   .stickyBar { margin-inline: -1rem; padding-inline: 1rem; }
   .topbarUser strong { display: none; }
+  /* Comfortable targets for one-handed admin on a phone. */
+  .btn { min-height: var(--tap-min); }
+  .btnSm { min-height: 2.25rem; }
+  .input, .select, .textarea { min-height: var(--tap-min); }
+  .menuBtn { width: var(--tap-min); height: var(--tap-min); justify-content: center; }
 }
 
 @media (max-width: 720px) {

@@ -193,3 +193,25 @@
   text-transform: uppercase;
   color: var(--color-muted);
 }
+
+/* Roomier rows in the mobile filter drawer — every option easy to tap. */
+@media (max-width: 63.99em) {
+  .radioList,
+  .checkList {
+    gap: var(--space-1);
+  }
+  .radio,
+  .check {
+    min-height: var(--tap-min);
+    font-size: var(--fs-base);
+  }
+  .radio input,
+  .check input {
+    width: 18px;
+    height: 18px;
+  }
+  .pill span {
+    padding: 0.6rem 1rem;
+    font-size: var(--fs-sm);
+  }
+}

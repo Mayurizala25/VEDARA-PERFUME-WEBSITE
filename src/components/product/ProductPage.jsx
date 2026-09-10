@@ -200,7 +200,14 @@ export default function ProductPage() {
       </main>
 
       {inStock ? (
-        <div className={styles.mobilePurchase}><Button type="button" variant="primary" fullWidth onClick={addToCart}>Add to cart · {formatPrice(view.price)}</Button></div>
+        <div className={styles.mobilePurchase}>
+          <Button type="button" variant="secondary" onClick={buyNow} disabled={buying}>
+            {buying ? 'Preparing…' : 'Buy now'}
+          </Button>
+          <Button type="button" variant="primary" onClick={addToCart}>
+            Add · {formatPrice(view.price)}
+          </Button>
+        </div>
       ) : null}
 
       {zoomed ? <div className={styles.zoomOverlay} role="dialog" aria-modal="true" aria-label="Product image zoom" onClick={() => setZoomed(false)}><img src={selectedImage} alt={`${view.name} enlarged`} /><button type="button" aria-label="Close image zoom" onClick={() => setZoomed(false)}><Icon name="close" size={22} /></button></div> : null}

@@ -54,7 +54,7 @@
   display: flex;
   align-items: flex-end;
   min-height: clamp(19rem, 44vh, 26rem);
-  padding-top: calc(var(--header-height) + var(--announcement-height) + var(--space-6));
+  padding-top: calc(var(--header-offset) + var(--space-6));
   overflow: hidden;
   background: var(--color-near-black);
   color: var(--color-champagne);

@@ -91,6 +91,17 @@
   --header-height: 64px;
   --announcement-height: 38px;
 
+  /* Comfortable minimum touch target (WCAG 2.5.5 / platform HIG). */
+  --tap-min: 44px;
+
+  /* Device safe areas (notch / home indicator) — 0 on non-inset devices. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Total space the fixed header + announcement bar occupy, notch included.
+     Page-level top padding should use this rather than re-adding the parts. */
+  --header-offset: calc(var(--header-height) + var(--announcement-height) + var(--safe-top));
+
   /* ---- Borders / radius --------------------------------------- */
   --border-hairline: 1px solid var(--color-line);
   --border-strong: 1px solid var(--color-primary);

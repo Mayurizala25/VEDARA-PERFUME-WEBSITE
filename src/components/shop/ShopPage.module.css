@@ -416,6 +416,15 @@
   font-size: var(--fs-lg);
 }
 
+.drawerHead button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  margin-inline-end: -0.5rem;
+}
+
 .drawerBody {
   flex: 1;
   overflow-y: auto;
@@ -451,8 +460,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4) var(--container-pad) calc(var(--space-4) + env(safe-area-inset-bottom));
+  padding: var(--space-4) var(--container-pad) calc(var(--space-4) + var(--safe-bottom));
   border-top: 1px solid var(--color-line);
+}
+
+.drawerFoot :global(button) {
+  min-height: var(--tap-min);
 }
 
 /* ---- Breakpoints -------------------------------------------- */
@@ -511,6 +524,8 @@
   }
   .toolbar {
     gap: var(--space-3);
+    /* The header auto-hides on scroll; let the toolbar ride to the very top. */
+    top: 0;
   }
   .toolbarControls {
     flex-wrap: wrap;
@@ -524,8 +539,35 @@
   .sort {
     flex: 1;
   }
+  .filterTrigger {
+    min-height: var(--tap-min);
+  }
   .grid {
     gap: var(--space-5) var(--space-3);
+  }
+
+  /* Category chips: one scrolling line instead of a wrapping block. */
+  .categoryNavInner {
+    flex-wrap: nowrap;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+  }
+  .categoryNavInner::-webkit-scrollbar {
+    display: none;
+  }
+  .categoryTab {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    padding-inline: var(--space-3);
+    white-space: nowrap;
+  }
+  .categoryTab:first-child {
+    padding-inline-start: 0;
   }
 }
 
