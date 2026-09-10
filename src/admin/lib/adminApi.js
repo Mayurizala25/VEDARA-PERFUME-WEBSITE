@@ -357,7 +357,7 @@ export async function getOrder(id) {
     .from('orders')
     .select('*, items:order_items(*, product:products(name, slug, product_images(url, alt, is_primary))), coupon:coupons(code, discount_type, discount_value)')
     .eq('id', id)
-    .single();
+    .maybeSingle();
   throwErr(error);
   return data;
 }

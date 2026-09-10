@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastProvider } from './ToastContext';
 import AdminGuard from './AdminGuard';
@@ -18,11 +19,43 @@ import Enquiries from './pages/Enquiries';
 import Settings from './pages/Settings';
 import './admin.module.css';
 
+/**
+ * Keeps a render error on one admin page from blanking the whole panel.
+ * RLS/auth errors still surface through each page's own ErrorState.
+ */
+class AdminErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { error };
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children;
+    return (
+      <div style={{ minHeight: '100dvh', display: 'grid', placeItems: 'center', padding: '2rem', textAlign: 'center' }}>
+        <div style={{ maxWidth: '26rem', display: 'grid', gap: '0.8rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem' }}>This page hit an error</h2>
+          <p style={{ color: 'var(--color-muted)', fontSize: '0.9rem' }}>{this.state.error?.message || 'Something went wrong rendering this screen.'}</p>
+          <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center' }}>
+            <button type="button" onClick={() => { window.location.href = '/admin'; }}>Back to dashboard</button>
+            <button type="button" onClick={() => window.location.reload()}>Reload</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 /** VEDARA owner panel. Mounted by App.jsx for any /admin* path. */
 export default function AdminApp() {
   return (
     <BrowserRouter basename="/admin" future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <ToastProvider>
+        <AdminErrorBoundary>
         <Routes>
           <Route path="login" element={<AdminLogin />} />
           <Route element={<AdminGuard />}>
@@ -44,6 +77,7 @@ export default function AdminApp() {
             </Route>
           </Route>
         </Routes>
+        </AdminErrorBoundary>
       </ToastProvider>
     </BrowserRouter>
   );

@@ -47,7 +47,8 @@ export default function AdminLayout() {
     load();
     const t = setInterval(load, 60000);
     return () => { alive = false; clearInterval(t); };
-  }, [loc.pathname]);
+    // Poll once on mount + every 60s — not on every admin route change.
+  }, []);
 
   const title = TITLES[loc.pathname] || TITLES[`/${loc.pathname.split('/')[1]}`] || 'Admin';
 

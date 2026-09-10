@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getOrder, setOrderStatus } from '../lib/adminApi';
 import { useAsync } from '../hooks';
 import { useToast } from '../ToastContext';
-import { Badge, Button, ConfirmDialog, ErrorState, Money, PageHeader } from '../components/ui';
+import { Badge, Button, ConfirmDialog, EmptyState, ErrorState, Money, PageHeader, Spinner } from '../components/ui';
 import { formatDate } from '../../lib/format';
 import { statusLabel } from '../../lib/invoice';
 import s from '../admin.module.css';
@@ -37,7 +37,20 @@ export default function OrderDetail() {
     else applyStatus(nextStatus);
   };
 
+  // The order arrives asynchronously — guard every state before touching it so a
+  // direct visit / refresh of /admin/orders/:id never renders against `null`.
+  if (loading && !order) return <Spinner label="Loading order…" />;
   if (error) return <ErrorState error={error} onRetry={reload} />;
+  if (!order) {
+    return (
+      <>
+        <PageHeader title="Order">
+          <Button variant="ghost" onClick={() => nav('/orders')}>← All orders</Button>
+        </PageHeader>
+        <EmptyState title="Order not found" text="This order may have been removed, or the link is incorrect." />
+      </>
+    );
+  }
 
   const addr = order.shipping_address || {};
 

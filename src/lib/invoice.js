@@ -1,4 +1,3 @@
-import { jsPDF } from 'jspdf';
 import { formatDate, formatPrice } from './format';
 
 export const ORDER_STATUSES = ['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'];
@@ -50,6 +49,9 @@ function imageData(url) {
 
 export async function makeInvoicePdf(order) {
   if (!order) throw new Error('Invoice data is unavailable.');
+  // jsPDF (+ its optional deps) is ~350 kB — load it only when an invoice is
+  // actually generated, never on the first storefront paint.
+  const { jsPDF } = await import('jspdf');
   const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
   const margin = 16;
   const pageWidth = 210;
