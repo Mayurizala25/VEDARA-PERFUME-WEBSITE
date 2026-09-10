@@ -231,6 +231,11 @@
   gap: var(--space-4);
 }
 
+/* Scent-family index reads two-up from the smallest phone. */
+.grid[data-cols='4'] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 /* The grid item wraps a <Reveal> around the card; stretch both to the track. */
 .grid > li {
   display: flex;
@@ -471,12 +476,6 @@
 }
 
 /* ---- Breakpoints -------------------------------------------- */
-@media (min-width: 37.5em) {
-  .grid[data-cols='4'] {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (min-width: 48em) {
   .grid[data-cols='3'] {
     grid-template-columns: repeat(3, 1fr);
@@ -508,6 +507,165 @@
   }
 
   .railHead {
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* ---- Phones & small tablets — mobile shopping-app layout ---------- */
+@media (max-width: 47.99em) {
+  /* Hero: trim dead space so the edits start sooner. */
+  .hero,
+  .detailHero {
+    min-height: 15rem;
+    padding-top: calc(var(--header-offset) + var(--space-3));
+  }
+
+  .heroInner,
+  .detailHeroInner {
+    padding-block: var(--space-4) var(--space-6);
+  }
+
+  .breadcrumb {
+    margin-bottom: var(--space-3);
+  }
+
+  .hero h1,
+  .detailHero h1 {
+    margin-top: var(--space-2);
+  }
+
+  .heroCopy,
+  .detailBlurb {
+    margin-top: var(--space-3);
+    font-size: var(--fs-sm);
+  }
+
+  .detailStats {
+    margin-top: var(--space-4);
+    gap: var(--space-2) var(--space-4);
+    font-size: var(--fs-xs);
+  }
+
+  .detailActions {
+    margin-top: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .detailActions .button {
+    width: 100%;
+  }
+
+  .detailActions .textLink {
+    align-self: center;
+  }
+
+  /* Featured collection: prominent image, shorter crop, tighter rhythm. */
+  .featured {
+    gap: var(--space-4);
+  }
+
+  .featuredFigure {
+    /* Override Figure's inline aspect-ratio for a calmer mobile crop. */
+    aspect-ratio: 3 / 2 !important;
+  }
+
+  .featuredTag {
+    top: var(--space-3);
+    left: var(--space-3);
+  }
+
+  .featuredBody h2 {
+    margin-top: var(--space-2);
+  }
+
+  .featuredBlurb {
+    margin-top: var(--space-3);
+    font-size: var(--fs-sm);
+  }
+
+  .featuredStats {
+    gap: var(--space-6);
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+  }
+
+  /* Preview thumbnails add height and a network cost for little value on a
+     phone — the "Explore" CTA below leads into the same set. */
+  .featuredThumbs {
+    display: none;
+  }
+
+  .featuredActions {
+    margin-top: var(--space-5);
+    gap: var(--space-3);
+  }
+
+  .featuredActions .button {
+    width: 100%;
+  }
+
+  .featuredActions .textLink {
+    align-self: center;
+  }
+
+  /* Grids: calmer gutters; scent families already two-up. */
+  .grid[data-cols='4'] {
+    gap: var(--space-3);
+  }
+
+  .grid[data-cols='3'] {
+    gap: var(--space-4);
+  }
+
+  /* Audience cards: wide editorial crop so all three fit with less scroll. */
+  .card[data-size='lg'] .cardMedia {
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .card[data-size='lg'] .cardBody {
+    padding: var(--space-4);
+  }
+
+  .card[data-size='lg'] .cardTitle {
+    font-size: clamp(1.9rem, 1rem + 4vw, 2.4rem);
+  }
+
+  /* Scent-family cards sit two per row — keep their content compact. */
+  .card[data-size='md'] .cardBody {
+    gap: var(--space-1);
+    padding: var(--space-3);
+  }
+
+  .card[data-size='md'] .cardTitle {
+    font-size: 1.35rem;
+  }
+
+  .card[data-size='md'] .cardTagline {
+    display: none;
+  }
+
+  .card[data-size='md'] .cardMeta {
+    margin-top: var(--space-1);
+    padding-top: var(--space-2);
+  }
+
+  /* Per-collection rails: stack the header, shrink the gaps. */
+  .rails {
+    gap: var(--space-8);
+  }
+
+  .railHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .railHead h3 {
+    margin-top: var(--space-1);
+  }
+
+  .skeletonFeatured {
     margin-bottom: var(--space-6);
   }
 }

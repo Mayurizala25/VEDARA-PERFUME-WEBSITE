@@ -7,6 +7,7 @@ import Reveal from '../ui/Reveal';
 import Figure from '../ui/Figure';
 import CollectionCard from './CollectionCard';
 import { useCollections } from '../../hooks/useCollections';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { formatPrice } from '../../lib/format';
 import styles from './Collections.module.css';
 
@@ -49,6 +50,7 @@ function FeaturedCollection({ collection }) {
           ratio="4 / 5"
           tone="cherry"
           priority
+          className={styles.featuredFigure}
           sizes="(min-width: 900px) 46vw, 92vw"
         />
         <span className={styles.featuredTag}>Featured collection</span>
@@ -85,8 +87,7 @@ function FeaturedCollection({ collection }) {
                     ratio="1 / 1"
                     tone="beige"
                     zoom={false}
-                    priority
-                    sizes="120px"
+                    sizes="(min-width: 900px) 120px, 22vw"
                   />
                 </a>
               </li>
@@ -169,6 +170,9 @@ function CollectionsMessage({ title, text, action }) {
 /** VEDARA — /collections. Editorial index of every collection, on live data. */
 export default function CollectionsPage() {
   const { audience, families, all, featured, loading, error } = useCollections();
+  // Phones get a leaner page: the audience cards already lead into every
+  // collection, so the per-collection product rails are desktop/tablet only.
+  const isPhone = useMediaQuery('(max-width: 47.99em)');
 
   if (loading) {
     return (
@@ -209,7 +213,7 @@ export default function CollectionsPage() {
     );
   }
 
-  const rails = audience.filter((collection) => collection.count > 0);
+  const rails = isPhone ? [] : audience.filter((collection) => collection.count > 0);
 
   return (
     <>
