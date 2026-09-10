@@ -87,7 +87,7 @@
   /* ---- Layout ---------------------------------------------------- */
   --container-max: 1280px;
   --container-wide: 1536px;
-  --container-pad: 1.25rem;
+  --container-pad: 1rem; /* 16px mobile gutter; widens at ≥768px */
   --header-height: 64px;
   --announcement-height: 38px;
 

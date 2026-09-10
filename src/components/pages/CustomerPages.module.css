@@ -29,6 +29,8 @@
 .form h2 { margin-top: var(--space-5); font-family: var(--font-heading); font-size: var(--fs-xl); font-weight: var(--fw-medium); }
 .form label { display: grid; gap: var(--space-2); color: var(--color-muted); font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
 .form input, .form select, .form textarea { width: 100%; padding: .85rem .9rem; color: var(--color-primary); background: transparent; border: 1px solid var(--color-line); outline: 0; text-transform: none; letter-spacing: 0; }
+/* Radios / checkboxes must not inherit the full-width, padded, bordered text-input styling. */
+.form input[type="radio"], .form input[type="checkbox"] { width: auto; min-width: 0; padding: 0; border: 0; accent-color: var(--color-cherry); flex: none; }
 .form textarea { resize: vertical; }
 .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--color-accent); }
 .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
@@ -71,7 +73,9 @@
 .checkoutHead { margin-bottom: var(--heading-gap); }
 .checkoutHead h1 { font-size: var(--fs-2xl); }
 .checkoutLayout .form { margin-top: 0; }
-.choice { display: flex !important; grid-template-columns: auto 1fr; align-items: center; gap: var(--space-3); padding: 1rem; border: 1px solid var(--color-line); color: var(--color-primary) !important; text-transform: none !important; letter-spacing: 0 !important; }
+/* Wins over `.form label` (higher specificity) without a stack of !important. */
+.form label.choice, .choice { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--color-line); color: var(--color-primary); font-size: var(--fs-sm); font-weight: var(--fw-regular); line-height: 1.45; text-transform: none; letter-spacing: 0; }
+.choice input { margin-top: 0.15rem; }
 .orderLine { align-items: start !important; }
 .orderLine span { max-width: 14rem; }
 .successPage { max-width: 42rem; margin: 0 auto; padding-block: clamp(3rem, 7vw, 4.5rem); text-align: center; }
@@ -123,7 +127,7 @@
 .accountOrders li a strong { color: var(--color-primary); }
 
 @media (max-width: 59.99em) { .pageHero { min-height: 23rem; } .pageHeroImage { inset: 0; opacity: .38; } .pageHeroImage::after { background: linear-gradient(90deg, var(--color-secondary) 15%, rgba(239,230,216,.42)); } .wishlistGrid { grid-template-columns: repeat(2, 1fr); } .editorialSplit, .contactLayout, .cartLayout, .checkoutLayout, .accountGrid { grid-template-columns: 1fr; gap: var(--space-8); } .summary { max-width: 34rem; } }
-@media (max-width: 39.99em) { .pageHeroInner { padding-block: 2.5rem; } .pageHero h1 { font-size: clamp(3.2rem, 15vw, 5rem); } .wishlistGrid { gap: var(--space-4); } .valueGrid { grid-template-columns: 1fr; gap: var(--space-5); } .formRow { grid-template-columns: 1fr; } .cartItem { grid-template-columns: 5.5rem 1fr; gap: var(--space-3); } .cartItem h3 { font-size: var(--fs-lg); } .cartControls { flex-wrap: wrap; gap: var(--space-3); } .orderReceipt { grid-template-columns: 1fr; } .orderReceipt div { border-right: 0; border-bottom: 1px solid var(--color-line); } }
+@media (max-width: 39.99em) { .pageHeroInner { padding-block: 2.25rem; } .pageHero { min-height: 19rem; } .pageHero h1 { font-size: clamp(2.9rem, 13vw, 4.6rem); } .wishlistGrid { gap: var(--space-4); } .valueGrid { grid-template-columns: 1fr; gap: var(--space-5); } .formRow { grid-template-columns: 1fr; } .cartItem { grid-template-columns: 5.5rem 1fr; gap: var(--space-3); } .cartItem h3 { font-size: var(--fs-lg); } .cartControls { flex-wrap: wrap; gap: var(--space-3); } .orderReceipt { grid-template-columns: 1fr; } .orderReceipt div { border-right: 0; border-bottom: 1px solid var(--color-line); } }
 
 /* ============================================================ Mobile app polish
    Persistent primary actions + comfortable touch targets ≤ 60em / 40em. */
@@ -202,4 +206,53 @@
   .pageHeroInner { padding-block: 2rem; }
   .cartItem { grid-template-columns: 4.75rem 1fr; }
   .orderReceipt div { padding: var(--space-3); }
+}
+
+/* ================================================= Checkout + Contact (mobile)
+   Tighten vertical rhythm, keep every control full-width and nothing clipped. */
+@media (max-width: 59.99em) {
+  /* -- Checkout -- */
+  .checkout { padding-block: calc(var(--header-offset) + var(--space-5)) var(--section-y); }
+  .checkoutHead { margin-bottom: var(--space-6); }
+  .checkoutHead h1 { font-size: var(--fs-xl); }
+  .checkoutLayout { gap: var(--space-6); }
+  .checkoutLayout .form { gap: var(--space-3); }
+  .checkoutLayout .form h2 { margin-top: var(--space-4); font-size: var(--fs-lg); }
+  .checkoutLayout .form h2:first-child { margin-top: 0; }
+
+  .savedAddressList { display: grid; gap: var(--space-2); margin-bottom: var(--space-1); }
+
+  .promo button { min-height: var(--tap-min); padding-inline: var(--space-4); }
+  .appliedCoupon {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-secondary);
+    font-size: var(--fs-sm);
+  }
+  .appliedCoupon strong { color: var(--color-cherry); }
+  .appliedCoupon .linkButton { margin-left: auto; }
+
+  /* "Add New Address" / "Remove Coupon" — real tap targets */
+  .linkButton { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+
+  /* Order-summary rows: name/qty wrap, amount stays put — never clipped */
+  .orderLine span { max-width: none; flex: 1 1 auto; min-width: 0; }
+  .summary > div strong, .summaryBody > div strong { flex: none; white-space: nowrap; text-align: right; }
+  .summaryBody { padding-inline: var(--space-4); }
+
+  /* Send / submit buttons span the screen */
+  .contactLayout .form button[type="submit"] { width: 100%; }
+
+  /* -- Contact -- */
+  .pageBody { padding-block: var(--space-8); }
+  .contactLayout { gap: var(--space-8); }
+  .contactLayout h2, .faq h2 { font-size: var(--fs-xl); }
+  .contactLayout .muted { font-size: var(--fs-sm); overflow-wrap: anywhere; }
+  .faqItem:first-of-type { margin-top: var(--space-6); }
+  .faqItem button { padding-block: var(--space-4); gap: var(--space-3); }
+  .faqItem p { padding: 0 0 var(--space-4); }
 }

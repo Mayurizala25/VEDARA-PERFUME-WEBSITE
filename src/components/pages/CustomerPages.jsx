@@ -267,7 +267,8 @@ export function CheckoutPage() {
   }));
   const [error, setError] = useState('');
   const [processing, setProcessing] = useState(false);
-  const [summaryOpen, setSummaryOpen] = useState(false);
+  // Order summary starts expanded on mobile so every line is visible without a tap.
+  const [summaryOpen, setSummaryOpen] = useState(true);
 
   useEffect(() => {
     if (!authLoading && !isAuthenticated) go('/login?redirect=/checkout');
