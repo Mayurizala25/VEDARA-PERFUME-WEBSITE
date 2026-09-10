@@ -11,7 +11,6 @@ import { useAuth } from '../../context/AuthContext';
 import { formatPrice } from '../../lib/format';
 import styles from './ProductPage.module.css';
 import { addCartItem, setPendingPurchase } from '../../lib/commerce';
-import ProductReviews from './ProductReviews';
 
 const GALLERY_NOTES = {
   'oudh-noir': ['/images/note-oud.jpg', '/images/note-saffron.jpg', '/images/note-sandalwood.jpg'],
@@ -188,8 +187,6 @@ export default function ProductPage() {
             </div>
           </section>
         </Container>
-
-        <ProductReviews productId={view.id} productName={view.name} fallbackCount={view.reviewCount} />
 
         <section className={styles.related} aria-labelledby="related-heading">
           <Container>
