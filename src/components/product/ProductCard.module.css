@@ -146,18 +146,32 @@
 }
 
 @media (max-width: 40em) {
+  /* Shorter square crop — less image, more products per screen. Overrides the
+     inline aspect-ratio Figure sets from its `ratio` prop. */
+  .image {
+    aspect-ratio: 1 / 1 !important;
+  }
   .body {
-    padding-top: var(--space-3);
+    padding-top: var(--space-2);
   }
   .name {
     font-size: var(--fs-md);
+  }
+  .family {
+    font-size: 0.6875rem;
+  }
+  .price {
+    margin-top: var(--space-1);
+  }
+  .rating {
+    margin-top: var(--space-2);
   }
   .add {
     min-height: var(--tap-min);
     margin-top: var(--space-3);
   }
   .wish {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 }

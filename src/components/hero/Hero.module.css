@@ -5,6 +5,8 @@
   overflow: hidden;
   background-color: var(--color-near-black);
   color: var(--color-champagne);
+  /* Let vertical scrolling stay native while we read horizontal swipes in JS. */
+  touch-action: pan-y;
 }
 
 /* ---- Image stage ------------------------------------------------- */
@@ -300,23 +302,28 @@
 @media (max-width: 39.99em) {
   .hero,
   .inner {
-    min-height: min(82svh, 640px);
+    min-height: min(72svh, 560px);
   }
   .inner {
     padding-block:
-      calc(var(--header-offset) + var(--space-5))
-      clamp(2rem, 5vh, 2.75rem);
-    gap: clamp(1.5rem, 5vh, 2.25rem);
+      calc(var(--header-offset) + var(--space-4))
+      clamp(1.5rem, 4vh, 2.25rem);
+    gap: clamp(1.25rem, 4vh, 1.9rem);
   }
   .slideImage {
-    background-position: center 45%;
+    background-position: center 42%;
   }
   .title {
-    font-size: clamp(2.75rem, 1rem + 8vw, 3.9rem);
+    margin-top: var(--space-4);
+    font-size: clamp(2.4rem, 1rem + 7vw, 3.3rem);
   }
   .lede {
+    margin-top: var(--space-4);
     font-size: var(--fs-base);
-    max-width: 32ch;
+    max-width: 34ch;
+  }
+  .actions {
+    margin-top: var(--space-5);
   }
 }
 

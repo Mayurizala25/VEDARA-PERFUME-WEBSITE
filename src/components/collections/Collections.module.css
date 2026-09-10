@@ -516,13 +516,13 @@
   /* Hero: trim dead space so the edits start sooner. */
   .hero,
   .detailHero {
-    min-height: 15rem;
+    min-height: 12rem;
     padding-top: calc(var(--header-offset) + var(--space-3));
   }
 
   .heroInner,
   .detailHeroInner {
-    padding-block: var(--space-4) var(--space-6);
+    padding-block: var(--space-4) var(--space-5);
   }
 
   .breadcrumb {
@@ -532,6 +532,7 @@
   .hero h1,
   .detailHero h1 {
     margin-top: var(--space-2);
+    font-size: clamp(2.1rem, 9vw, 3rem);
   }
 
   .heroCopy,
@@ -674,7 +675,7 @@
 @media (max-width: 24em) {
   .hero h1,
   .detailHero h1 {
-    font-size: clamp(2.6rem, 12vw, 3.1rem);
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
   }
 
   .featuredStats {

@@ -23,7 +23,26 @@
 }
 
 @media (max-width: 39.99em) {
-  .grid {
+  /* Plain grids become a compact 2-up so a phone shows four products at once
+     instead of one oversized card at a time. */
+  .grid:not([data-carousel]) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5) var(--space-3);
+  }
+
+  .grid:not([data-carousel]) > li {
+    min-width: 0;
+    display: flex;
+  }
+
+  .grid:not([data-carousel]) > li > * {
+    width: 100%;
+  }
+
+  /* Editorial rails keep their horizontal swipe, with more of the next card
+     peeking through so it reads as a browsable row. */
+  .grid[data-carousel] {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -33,22 +52,13 @@
     padding-bottom: var(--space-2);
   }
 
-  .grid::-webkit-scrollbar {
+  .grid[data-carousel]::-webkit-scrollbar {
     display: none;
   }
 
-  .grid > li {
-    flex: 0 0 min(78vw, 18rem);
-    scroll-snap-align: start;
-  }
-
-  .grid[data-carousel] {
-    margin-inline: calc(var(--container-pad) * -1);
-    padding-inline: var(--container-pad);
-  }
-
   .grid[data-carousel] > li {
-    flex-basis: min(84vw, 21rem);
+    flex: 0 0 min(70vw, 16rem);
+    scroll-snap-align: start;
   }
 }
 

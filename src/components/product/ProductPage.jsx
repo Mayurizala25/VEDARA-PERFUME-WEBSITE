@@ -194,7 +194,7 @@ export default function ProductPage() {
         <section className={styles.related} aria-labelledby="related-heading">
           <Container>
             <div className={styles.relatedHead}><div><p className={styles.eyebrow}>The house edit</p><h2 id="related-heading">You May Also Like</h2></div><a href="/shop">View all <span aria-hidden="true">→</span></a></div>
-            <ProductGrid products={related} columns={4} priority />
+            <ProductGrid products={related} columns={4} />
           </Container>
         </section>
       </main>

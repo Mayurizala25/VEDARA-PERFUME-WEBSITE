@@ -319,23 +319,30 @@
   .stock {
     display: none;
   }
+  /* Shorter square crop keeps two balanced columns without tall image blocks. */
+  .media {
+    aspect-ratio: 1 / 1;
+  }
   .body {
-    padding-top: var(--space-3);
+    padding-top: var(--space-2);
   }
   .name {
     font-size: var(--fs-md);
   }
+  .family {
+    font-size: 0.6875rem;
+  }
   .ratingRow,
   .price {
-    margin-top: var(--space-2);
+    margin-top: var(--space-1);
   }
   .add {
     min-height: var(--tap-min);
     padding-top: var(--space-3);
   }
   .wish {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
   }
 }
 

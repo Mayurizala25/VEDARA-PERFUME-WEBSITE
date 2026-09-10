@@ -65,10 +65,32 @@
   position: relative;
 }
 
-/* Phones: slightly tighter cards so the next one peeks (home section only). */
+/* Phones: drop the swipe rail for a compact 2-up grid — all four featured
+   fragrances visible without horizontal scrolling. */
 @media (max-width: 39.99em) {
+  .head {
+    margin-bottom: var(--space-5);
+  }
+
+  /* No arrows without a scroll rail — the 2-up grid shows everything. */
+  .controls {
+    display: none;
+  }
+
+  .trackWrap > ul[data-carousel] {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5) var(--space-3);
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-bottom: 0;
+  }
+
   .trackWrap > ul[data-carousel] > li {
-    flex-basis: min(74vw, 17rem);
+    flex: initial;
+    min-width: 0;
+    scroll-snap-align: none;
   }
 }
 

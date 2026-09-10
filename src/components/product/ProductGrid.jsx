@@ -9,7 +9,8 @@ export default function ProductGrid({ products, columns = 4, carousel = false, t
       {products.map((product, i) => (
         <li key={product.slug}>
           <Reveal delay={Math.min(i, 3) * 70}>
-            <ProductCard product={product} onQuickView={onQuickView} priority={priority} />
+            {/* Only eager-load the first row; the rest lazy-load as they scroll in. */}
+            <ProductCard product={product} onQuickView={onQuickView} priority={priority && i < 4} />
           </Reveal>
         </li>
       ))}

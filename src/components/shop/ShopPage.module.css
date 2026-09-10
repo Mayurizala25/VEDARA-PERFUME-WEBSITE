@@ -513,7 +513,26 @@
 /* Phones — tighten spacing, keep 2 columns. */
 @media (max-width: 39.99em) {
   .hero {
-    min-height: 20rem;
+    min-height: 0;
+    align-items: stretch;
+    /* No tall min-height on phones — reserve just the fixed-header space. */
+    padding-top: calc(var(--header-offset) + var(--space-3));
+  }
+  .heroInner {
+    padding-block: 0 var(--space-5);
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 8vw, 2.9rem);
+  }
+  .heroCopy {
+    margin-top: var(--space-3);
+    font-size: var(--fs-sm);
+  }
+  .breadcrumb {
+    margin-bottom: var(--space-3);
+  }
+  .categoryNavInner {
+    padding-block: var(--space-3);
   }
   .heroImage {
     inset: 0;
@@ -524,6 +543,7 @@
   }
   .toolbar {
     gap: var(--space-3);
+    padding-block: var(--space-3);
     /* The header auto-hides on scroll; let the toolbar ride to the very top. */
     top: 0;
   }
@@ -543,7 +563,13 @@
     min-height: var(--tap-min);
   }
   .grid {
-    gap: var(--space-5) var(--space-3);
+    gap: var(--space-4) var(--space-3);
+  }
+  .layout {
+    margin-top: var(--space-4);
+  }
+  .catalogue {
+    padding-block: var(--space-4) var(--section-y);
   }
 
   /* Category chips: one scrolling line instead of a wrapping block. */
@@ -573,7 +599,7 @@
 
 @media (max-width: 22.5em) {
   .hero h1 {
-    font-size: clamp(2.75rem, 14vw, 3.5rem);
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
   }
 }
 

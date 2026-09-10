@@ -92,6 +92,28 @@
   transform: translateX(5px);
 }
 
+/* Phones: two-up category cards — shorter crop, tighter body, no description
+   so both rows stay compact and scannable. */
+@media (max-width: 34.99em) {
+  .media {
+    aspect-ratio: 4 / 5 !important;
+  }
+  .body {
+    padding: var(--space-3);
+    gap: var(--space-1);
+  }
+  .name {
+    font-size: 1.35rem;
+  }
+  .desc {
+    display: none;
+  }
+  .meta {
+    margin-top: var(--space-1);
+    padding-top: var(--space-2);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;

@@ -127,7 +127,7 @@
 .accountOrders li a strong { color: var(--color-primary); }
 
 @media (max-width: 59.99em) { .pageHero { min-height: 23rem; } .pageHeroImage { inset: 0; opacity: .38; } .pageHeroImage::after { background: linear-gradient(90deg, var(--color-secondary) 15%, rgba(239,230,216,.42)); } .wishlistGrid { grid-template-columns: repeat(2, 1fr); } .editorialSplit, .contactLayout, .cartLayout, .checkoutLayout, .accountGrid { grid-template-columns: 1fr; gap: var(--space-8); } .summary { max-width: 34rem; } }
-@media (max-width: 39.99em) { .pageHeroInner { padding-block: 2.25rem; } .pageHero { min-height: 19rem; } .pageHero h1 { font-size: clamp(2.9rem, 13vw, 4.6rem); } .wishlistGrid { gap: var(--space-4); } .valueGrid { grid-template-columns: 1fr; gap: var(--space-5); } .formRow { grid-template-columns: 1fr; } .cartItem { grid-template-columns: 5.5rem 1fr; gap: var(--space-3); } .cartItem h3 { font-size: var(--fs-lg); } .cartControls { flex-wrap: wrap; gap: var(--space-3); } .orderReceipt { grid-template-columns: 1fr; } .orderReceipt div { border-right: 0; border-bottom: 1px solid var(--color-line); } }
+@media (max-width: 39.99em) { .pageHero { min-height: 0; align-items: stretch; padding-top: calc(var(--header-offset) + var(--space-3)); } .pageHeroInner { padding-block: 0 var(--space-5); } .pageHero h1 { font-size: clamp(2.1rem, 8vw, 2.9rem); } .pageHeroInner > p:last-child { margin-top: var(--space-3); font-size: var(--fs-sm); } .wishlistGrid { gap: var(--space-4); } .valueGrid { grid-template-columns: 1fr; gap: var(--space-5); } .formRow { grid-template-columns: 1fr; } .cartItem { grid-template-columns: 5.5rem 1fr; gap: var(--space-3); } .cartItem h3 { font-size: var(--fs-lg); } .cartControls { flex-wrap: wrap; gap: var(--space-3); } .orderReceipt { grid-template-columns: 1fr; } .orderReceipt div { border-right: 0; border-bottom: 1px solid var(--color-line); } }
 
 /* ============================================================ Mobile app polish
    Persistent primary actions + comfortable touch targets ≤ 60em / 40em. */
@@ -199,11 +199,32 @@
   .passwordToggle { min-height: var(--tap-min); display: inline-flex; align-items: center; }
 }
 
+/* -- Calmer headings + tighter rhythm on phones (less scrolling) -- */
+@media (max-width: 39.99em) {
+  .checkoutHead h1, .successPage h1, .authPage h1,
+  .emptyState h2, .pageHeading h2,
+  .editorialSplit h2, .contactLayout h2, .faq h2,
+  .pageHeading h2 { font-size: var(--fs-xl); }
+
+  .pageBody { padding-block: var(--space-6); }
+  .pageHeading { margin-bottom: var(--space-5); }
+  .accountCard { padding: var(--space-5); }
+  .summary { padding: var(--space-5); }
+  .editorialSplit p:not(.eyebrow):not(.pullQuote) { margin-top: var(--space-4); }
+  .pullQuote { margin-top: var(--space-5); font-size: var(--fs-lg); }
+  .values { margin-top: var(--space-8); }
+
+  /* Shorter product images in the wishlist grid. */
+  .savedCard :global(.figure) { aspect-ratio: 1 / 1 !important; }
+  .savedCard h3 { font-size: var(--fs-md); }
+  .cardActions { margin-top: var(--space-3); }
+}
+
 /* -- Very small phones (320px): keep long hero headings from breaking mid-word -- */
 @media (max-width: 23.5em) {
-  .pageHero h1 { font-size: clamp(2.4rem, 12vw, 3.4rem); }
-  .checkoutHead h1, .successPage h1, .authPage h1, .emptyState h2, .pageHeading h2 { font-size: var(--fs-xl); }
-  .pageHeroInner { padding-block: 2rem; }
+  .pageHero h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+  .checkoutHead h1, .successPage h1, .authPage h1, .emptyState h2, .pageHeading h2 { font-size: var(--fs-lg); }
+  .pageHeroInner { padding-block: 0 var(--space-4); }
   .cartItem { grid-template-columns: 4.75rem 1fr; }
   .orderReceipt div { padding: var(--space-3); }
 }
@@ -212,8 +233,8 @@
    Tighten vertical rhythm, keep every control full-width and nothing clipped. */
 @media (max-width: 59.99em) {
   /* -- Checkout -- */
-  .checkout { padding-block: calc(var(--header-offset) + var(--space-5)) var(--section-y); }
-  .checkoutHead { margin-bottom: var(--space-6); }
+  .checkout { padding-block: calc(var(--header-offset) + var(--space-4)) var(--section-y); }
+  .checkoutHead { margin-bottom: var(--space-5); }
   .checkoutHead h1 { font-size: var(--fs-xl); }
   .checkoutLayout { gap: var(--space-6); }
   .checkoutLayout .form { gap: var(--space-3); }
@@ -248,8 +269,8 @@
   .contactLayout .form button[type="submit"] { width: 100%; }
 
   /* -- Contact -- */
-  .pageBody { padding-block: var(--space-8); }
-  .contactLayout { gap: var(--space-8); }
+  .pageBody { padding-block: var(--space-6); }
+  .contactLayout { gap: var(--space-6); }
   .contactLayout h2, .faq h2 { font-size: var(--fs-xl); }
   .contactLayout .muted { font-size: var(--fs-sm); overflow-wrap: anywhere; }
   .faqItem:first-of-type { margin-top: var(--space-6); }

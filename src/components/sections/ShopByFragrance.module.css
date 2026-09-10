@@ -1,43 +1,18 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
+  /* Two compact category cards per row on phones — all four visible at once
+     instead of a one-and-a-bit-wide horizontal scroll. */
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3) var(--space-2);
 }
 
 .item {
   display: flex;
+  min-width: 0;
 }
 
 .item > * {
   width: 100%;
-}
-
-/* Mobile: immersive edge-to-edge horizontal scroll. */
-@media (max-width: 34.99em) {
-  .grid {
-    display: flex;
-    overflow-x: auto;
-    gap: var(--space-2);
-    margin-inline: calc(var(--container-pad) * -1);
-    padding-inline: var(--container-pad);
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .item {
-    flex: 0 0 min(66vw, 15.5rem);
-    scroll-snap-align: start;
-  }
-}
-
-@media (min-width: 35em) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (min-width: 60em) {
