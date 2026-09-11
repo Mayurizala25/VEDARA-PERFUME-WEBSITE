@@ -33,7 +33,9 @@ const P = {
   external: 'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
   download: 'M12 3v12M7 10l5 5 5-5M4 21h16',
   printer: 'M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z',
-  upload: 'M12 15V3M7 8l5-5 5 5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2',  chart: 'M3 3h7v7H3zM14 3h7v4h-7zM3 14h7v7H3zM14 10h7v11h-7z',};
+  upload: 'M12 15V3M7 8l5-5 5 5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2',  chart: 'M3 3h7v7H3zM14 3h7v4h-7zM3 14h7v7H3zM14 10h7v11h-7z',
+  sheet: 'M4 4h16v16H4zM4 9h16M4 14h16M9 4v16M14 4v16',
+};
 
 export function Icon({ name, size = 18 }) {
   const d = P[name];

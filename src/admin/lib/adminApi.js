@@ -367,6 +367,12 @@ export async function setOrderStatus(id, status) {
   throwErr(error);
 }
 
+/** Patch the small set of contact/notes fields the Sheet Orders page edits. */
+export async function updateOrderContact(id, fields) {
+  const { error } = await supabase.from('orders').update(fields).eq('id', id);
+  throwErr(error);
+}
+
 /* ============================================================ Customers */
 
 export async function listCustomers({ search = '', sort = 'created_at.desc', page = 1, pageSize = 20 } = {}) {

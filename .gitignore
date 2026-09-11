@@ -38,3 +38,4 @@ supabase/.temp/
 /public/Refrences/
 
 .vercel
+.env*

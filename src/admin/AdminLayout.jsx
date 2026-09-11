@@ -14,6 +14,7 @@ const NAV = [
   { to: '/inventory', label: 'Inventory', icon: 'tag', badge: 'stock' },
   { section: 'Sales' },
   { to: '/orders', label: 'Orders', icon: 'cart', badge: 'orders' },
+  { to: '/sheet-orders', label: 'Sheet Orders', icon: 'sheet' },
   { to: '/customers', label: 'Customers', icon: 'users' },
   { to: '/reports', label: 'Reports', icon: 'chart' },
   { to: '/coupons', label: 'Coupons', icon: 'ticket' },
@@ -26,7 +27,7 @@ const NAV = [
 
 const TITLES = {
   '/': 'Dashboard', '/products': 'Products', '/categories': 'Categories', '/inventory': 'Inventory',
-  '/orders': 'Orders', '/customers': 'Customers', '/reports': 'Reports', '/coupons': 'Coupons', '/reviews': 'Reviews',
+  '/orders': 'Orders', '/sheet-orders': 'Sheet Orders', '/customers': 'Customers', '/reports': 'Reports', '/coupons': 'Coupons', '/reviews': 'Reviews',
   '/contact-enquiries': 'Contact Enquiries', '/settings': 'Settings',
 };
 
