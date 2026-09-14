@@ -183,8 +183,14 @@ async function sheetsFetch(path, options = {}) {
       clearToken();
       throw new Error('Your Google connection expired — click Connect Google Sheet again.');
     }
-    if (res.status === 403 || status === 'PERMISSION_DENIED') {
-      throw new Error('This Google account doesn’t have edit access to the sheet — open it in Google Drive and share it with the account you connected.');
+    if (res.status === 403) {
+      const detail = json.error?.message || status || 'Permission denied.';
+      // Google reports "API disabled" and "no file access" both as 403 —
+      // always surface its real message so we're never guessing which one it is.
+      if (/has not been used|it is disabled|SERVICE_DISABLED/i.test(detail)) {
+        throw new Error(`The Google Sheets API isn’t enabled for this Google Cloud project yet. Google said: "${detail}"`);
+      }
+      throw new Error(`This Google account doesn’t have edit access to the sheet — open it in Google Drive and share it with the account you connected. (Google said: "${detail}")`);
     }
     if (res.status === 404 || status === 'NOT_FOUND') {
       throw new Error('The Google Sheet wasn’t found — check VITE_GOOGLE_SHEETS_ID.');
