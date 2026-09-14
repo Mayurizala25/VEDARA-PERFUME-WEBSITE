@@ -14,7 +14,7 @@ const NAV = [
   { to: '/inventory', label: 'Inventory', icon: 'tag', badge: 'stock' },
   { section: 'Sales' },
   { to: '/orders', label: 'Orders', icon: 'cart', badge: 'orders' },
-  { to: '/sheet-orders', label: 'Sheet Orders', icon: 'sheet' },
+  { to: '/order-sheet', label: 'Order Sheet', icon: 'sheet' },
   { to: '/customers', label: 'Customers', icon: 'users' },
   { to: '/reports', label: 'Reports', icon: 'chart' },
   { to: '/coupons', label: 'Coupons', icon: 'ticket' },
@@ -27,7 +27,7 @@ const NAV = [
 
 const TITLES = {
   '/': 'Dashboard', '/products': 'Products', '/categories': 'Categories', '/inventory': 'Inventory',
-  '/orders': 'Orders', '/sheet-orders': 'Sheet Orders', '/customers': 'Customers', '/reports': 'Reports', '/coupons': 'Coupons', '/reviews': 'Reviews',
+  '/orders': 'Orders', '/order-sheet': 'Order Sheet', '/customers': 'Customers', '/reports': 'Reports', '/coupons': 'Coupons', '/reviews': 'Reviews',
   '/contact-enquiries': 'Contact Enquiries', '/settings': 'Settings',
 };
 
@@ -46,9 +46,19 @@ export default function AdminLayout() {
       .then((st) => { if (alive) setBadges({ orders: st.orders_pending, reviews: st.reviews_pending, enquiries: st.enquiries_new, stock: (st.low_stock || 0) + (st.out_of_stock || 0) }); })
       .catch(() => { });
     load();
-    const t = setInterval(load, 60000);
-    return () => { alive = false; clearInterval(t); };
-    // Poll once on mount + every 60s — not on every admin route change.
+    // Poll once on mount + every 60s — not on every admin route change, and
+    // never while the tab is in the background (no point spending requests
+    // on a badge count nobody is looking at).
+    let t = 0;
+    const schedule = () => { t = window.setInterval(load, 60000); };
+    const stop = () => { window.clearInterval(t); t = 0; };
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else { load(); if (!t) schedule(); }
+    };
+    schedule();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { alive = false; stop(); document.removeEventListener('visibilitychange', onVisibility); };
   }, []);
 
   const title = TITLES[loc.pathname] || TITLES[`/${loc.pathname.split('/')[1]}`] || 'Admin';

@@ -97,7 +97,7 @@ export default function Products() {
                   {data.rows.map((row) => (
                     <tr key={row.id}>
                       <td>{row.primaryImage
-                        ? <img className={s.thumb} src={row.primaryImage.url} alt="" />
+                        ? <img className={s.thumb} src={row.primaryImage.url} alt="" loading="lazy" decoding="async" />
                         : <div className={s.thumb} />}</td>
                       <td>
                         <Link to={`/products/${row.id}/edit`} className={s.cellMain}>{row.name}</Link>

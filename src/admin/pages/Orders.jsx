@@ -94,7 +94,7 @@ export default function Orders() {
                         <div>{o.customer_name || '—'}</div>
                         <div className={s.cellSub}>{o.email || o.phone || 'No contact details'}</div>
                       </td>
-                      <td><div className={s.productCell}>{o.first_item?.product?.product_images?.[0]?.url ? <img src={o.first_item.product.product_images[0].url} alt="" className={s.thumbSm} /> : <span className={s.productPlaceholder}><Icon name="box" size={15} /></span>}<span><strong>{o.first_item?.name || 'Order items'}</strong><small>{o.item_count} item{o.item_count === 1 ? '' : 's'}{o.item_count > (o.first_item?.quantity || 0) ? ' · multiple products' : ''}</small></span></div></td>
+                      <td><div className={s.productCell}>{o.first_item?.product?.product_images?.[0]?.url ? <img src={o.first_item.product.product_images[0].url} alt="" className={s.thumbSm} loading="lazy" decoding="async" /> : <span className={s.productPlaceholder}><Icon name="box" size={15} /></span>}<span><strong>{o.first_item?.name || 'Order items'}</strong><small>{o.item_count} item{o.item_count === 1 ? '' : 's'}{o.item_count > (o.first_item?.quantity || 0) ? ' · multiple products' : ''}</small></span></div></td>
                       <td className={s.cellSub}>{formatDate(o.created_at)}</td>
                       <td className={s.num}><Money value={o.total} /></td>
                       <td><span className={s.paymentState}>Recorded</span></td>

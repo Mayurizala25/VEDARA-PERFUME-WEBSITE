@@ -367,10 +367,14 @@ export async function setOrderStatus(id, status) {
   throwErr(error);
 }
 
-/** Patch the small set of contact/notes fields the Sheet Orders page edits. */
-export async function updateOrderContact(id, fields) {
-  const { error } = await supabase.from('orders').update(fields).eq('id', id);
+/** Every order, unpaged, with its line items — used by the Google Sheet sync. */
+export async function listAllOrders() {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*, items:order_items(name, quantity)')
+    .order('created_at', { ascending: false });
   throwErr(error);
+  return data || [];
 }
 
 /* ============================================================ Customers */

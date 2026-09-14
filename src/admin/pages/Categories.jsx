@@ -181,7 +181,7 @@ export default function Categories() {
                 <tbody>
                   {categories.map((c) => (
                     <tr key={c.id}>
-                      <td>{c.image_url ? <img className={s.thumbSm} src={c.image_url} alt="" /> : <div className={s.thumbSm} />}</td>
+                      <td>{c.image_url ? <img className={s.thumbSm} src={c.image_url} alt="" loading="lazy" decoding="async" /> : <div className={s.thumbSm} />}</td>
                       <td className={s.cellMain}>{c.name}</td>
                       <td className={s.cellSub}>{c.slug}</td>
                       <td className={s.cellSub} style={{ maxWidth: 320 }}>{c.description || '—'}</td>

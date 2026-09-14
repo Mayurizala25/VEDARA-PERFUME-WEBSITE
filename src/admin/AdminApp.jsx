@@ -10,7 +10,7 @@ import ProductForm from './pages/ProductForm';
 import Categories from './pages/Categories';
 import Orders from './pages/Orders';
 import OrderDetail from './pages/OrderDetail';
-import SheetOrders from './pages/SheetOrders';
+import OrderSheet from './pages/OrderSheet';
 import Customers from './pages/Customers';
 import Inventory from './pages/Inventory';
 
@@ -68,7 +68,7 @@ export default function AdminApp() {
               <Route path="categories" element={<Categories />} />
               <Route path="orders" element={<Orders />} />
               <Route path="orders/:id" element={<OrderDetail />} />
-              <Route path="sheet-orders" element={<SheetOrders />} />
+              <Route path="order-sheet" element={<OrderSheet />} />
               <Route path="customers" element={<Customers />} />
               <Route path="inventory" element={<Inventory />} />
               <Route path="reports" element={<Reports />} />

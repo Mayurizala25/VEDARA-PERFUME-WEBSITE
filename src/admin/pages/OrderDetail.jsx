@@ -78,7 +78,7 @@ export default function OrderDetail() {
                 <tbody>
                   {(order.items || []).map((it) => (
                     <tr key={it.id}>
-                      <td><div className={s.detailProduct}>{it.product?.product_images?.[0]?.url ? <img src={it.product.product_images[0].url} alt="" className={s.thumb} /> : null}<span className={s.cellMain}>{it.name}</span></div></td>
+                      <td><div className={s.detailProduct}>{it.product?.product_images?.[0]?.url ? <img src={it.product.product_images[0].url} alt="" className={s.thumb} loading="lazy" decoding="async" /> : null}<span className={s.cellMain}>{it.name}</span></div></td>
                       <td>{it.size || '—'}</td>
                       <td className={s.num}><Money value={it.unit_price} /></td>
                       <td className={s.num}>{it.quantity}</td>
