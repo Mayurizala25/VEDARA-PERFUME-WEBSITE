@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { listAllOrders } from '../lib/adminApi';
-import { connectGoogleSheet, isGoogleSheetConnected, readSheet, syncOrdersToSheet } from '../lib/googleSheets';
+import { connectGoogleSheet, isGoogleSheetConnected, preloadGoogleSheets, readSheet, syncOrdersToSheet } from '../lib/googleSheets';
 import { useAsync } from '../hooks';
 import { useToast } from '../ToastContext';
 import { Badge, Button, EmptyState, ErrorState, Icon, PageHeader, Spinner } from '../components/ui';
@@ -18,6 +18,13 @@ export default function OrderSheet() {
   const [connected, setConnected] = useState(isGoogleSheetConnected);
   const [connecting, setConnecting] = useState(false);
   const [syncing, setSyncing] = useState(false);
+
+  // Fetch Google's sign-in script as soon as this page opens, well before
+  // any click — a popup opened after an on-click network fetch arrives too
+  // late for browsers to treat it as user-triggered, and gets silently
+  // blocked. This costs nothing if the admin never connects.
+  useEffect(() => { preloadGoogleSheets(); }, []);
+
   const { data, loading, error, reload } = useAsync(
     () => (connected ? readSheet() : Promise.resolve(null)),
     [connected],

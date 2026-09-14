@@ -52,6 +52,17 @@ function spreadsheetId() {
 }
 
 let gisPromise = null;
+/**
+ * Loads the Google Identity Services script ahead of time. Call this once
+ * when the Order Sheet page mounts (not from the Connect click) — if the
+ * script has to be fetched over the network *during* the click, the popup
+ * that follows arrives late enough that browsers no longer treat it as
+ * directly triggered by the click, and silently block/close it.
+ */
+export function preloadGoogleSheets() {
+  loadGis().catch(() => { /* connectGoogleSheet() will surface this on click */ });
+}
+
 function loadGis() {
   if (window.google?.accounts?.oauth2) return Promise.resolve();
   if (gisPromise) return gisPromise;
@@ -102,8 +113,11 @@ export function isGoogleSheetConnected() {
 }
 
 function describeAuthError(type) {
-  if (type === 'popup_closed' || type === 'popup_failed_to_open') {
-    return 'The Google sign-in window was closed before finishing — click Connect Google Sheet and try again.';
+  if (type === 'popup_failed_to_open') {
+    return 'Your browser blocked the Google sign-in window — allow pop-ups for this site and click Connect Google Sheet again.';
+  }
+  if (type === 'popup_closed') {
+    return 'The Google sign-in window closed before finishing — click Connect Google Sheet and try again, or check your browser isn’t blocking pop-ups for this site.';
   }
   if (type === 'access_denied') {
     return 'Google access wasn’t granted — click Connect Google Sheet and approve access to Google Sheets.';
